@@ -1,13 +1,16 @@
 
-import './App.css'
+import { Outlet } from 'react-router-dom';
+import Navbar from './components/Navbar';
+
 
 function App() {
-
+  console.log("App renderizou!");
 
   return (
-    <>
-      <h1>anime imdb</h1>
-    </>
+    <div className="App">
+      <Navbar />
+      <Outlet />
+    </div>
   )
 }
 
