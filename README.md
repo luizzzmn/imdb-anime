@@ -1,4 +1,4 @@
-#IMDB ANIME
+IMDB ANIME
 
 Projeto realizado para a disciplina de Progamação Web, visando o desenvolvimento de um website com as seguintes funcionalidades:
 pesquisar animes dentro do próprio site, recomendar as obras mais vistas durante a temporada,
