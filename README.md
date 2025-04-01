@@ -6,7 +6,7 @@ exibir reviews de outros usuários sobre a obra que você estiver procurando, ma
 como concluídos criando assim uma lista de progresso sobre determinada obra, poder deixar
 sua review do anime, adicionar animes a sua lista pessoal de “finalizados” ou “assistindo”.
 
-#OBJETIVOS:
+OBJETIVOS:
 
 Com o objetivo de criar um ambiente de avaliações inspirado no IMDB no âmbito dos animes,
 o presente produto oferece uma plataforma dinâmica e intuitiva para que os usuários
@@ -14,7 +14,7 @@ interessados no nicho possam organizar suas obras assistidas, avaliar e ver aval
 usuários, permitindo assim uma interação da comunidade e um maior fluxo de interações sobre
 as obras ali presentes.
 
-#TECNOLOGIAS:
+TECNOLOGIAS:
 Setup inicial usando Vite + React, hospendando o site aqui pelo githubpages.
 - Utilização marjoritária de React com Bootstrap para a parte de interface do usuário no frontend.
 - Node.js + Express.js para a parte de backend e conexão com os servidores de API.
