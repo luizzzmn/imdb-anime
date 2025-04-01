@@ -1,12 +1,21 @@
-# React + Vite
+#IMDB ANIME
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeto realizado para a disciplina de Progamação Web, visando o desenvolvimento de um website com as seguintes funcionalidades:
+pesquisar animes dentro do próprio site, recomendar as obras mais vistas durante a temporada,
+exibir reviews de outros usuários sobre a obra que você estiver procurando, marcar episódios
+como concluídos criando assim uma lista de progresso sobre determinada obra, poder deixar
+sua review do anime, adicionar animes a sua lista pessoal de “finalizados” ou “assistindo”.
 
-Currently, two official plugins are available:
+#OBJETIVOS:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Com o objetivo de criar um ambiente de avaliações inspirado no IMDB no âmbito dos animes,
+o presente produto oferece uma plataforma dinâmica e intuitiva para que os usuários
+interessados no nicho possam organizar suas obras assistidas, avaliar e ver avaliações de outros
+usuários, permitindo assim uma interação da comunidade e um maior fluxo de interações sobre
+as obras ali presentes.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+#TECNOLOGIAS:
+Setup inicial usando Vite + React, hospendando o site aqui pelo githubpages.
+- Utilização marjoritária de React com Bootstrap para a parte de interface do usuário no frontend.
+- Node.js + Express.js para a parte de backend e conexão com os servidores de API.
+- MongoDB para o banco de dados não relacional.
