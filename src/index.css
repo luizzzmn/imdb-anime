@@ -1,0 +1,22 @@
+
+* {
+    font-family: Inter;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: aliceblue;
+    color: black;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    transition: 0.5s;
+}
+
+a:hover{
+    color: #4d4d4d;
+}
