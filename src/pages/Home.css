@@ -1,0 +1,51 @@
+.anime-scroll {
+  display: flex;
+  overflow-x: auto;
+  padding: 1rem;
+  gap: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: #999 transparent;
+}
+
+.anime-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.anime-scroll::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 4px;
+}
+
+.anime-card {
+  min-width: 180px;
+  flex-shrink: 0;
+  background: white;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.anime-card:hover {
+  transform: scale(1.03);
+}
+
+.anime-card img {
+  width: 200px;
+  border-radius: 6px;
+}
+
+.anime-card h3 {
+  margin: 0.5rem 0 0.2rem;
+  font-size: 1rem;
+  word-break: break-word;   /* quebra palavras longas */
+  white-space: normal;      /* permite múltiplas linhas */
+  overflow-wrap: break-word;
+  max-width: 160px;         /* controla largura máxima do título */
+}
+
+.anime-card p {
+  margin: 0;
+  color: #555;
+  font-size: 0.9rem;
+}
