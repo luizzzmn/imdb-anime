@@ -1,6 +1,5 @@
 
-
-function search_anime_anilist(query){
+function get_Trending_Anime(query){
     let url = "https://graphql.anilist.co"
     const htmlString = `
     query {
@@ -47,4 +46,4 @@ function search_anime_anilist(query){
 
 }
 
-search_anime_anilist("Jujutsu Kaisen")
+get_Trending_Anime("Jujutsu Kaisen")
