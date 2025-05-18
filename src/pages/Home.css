@@ -1,51 +1,87 @@
-.anime-scroll {
+.highlight-container {
+  padding: 2rem 1rem;
+  /* removido text-align: center */
+}
+
+.highlight-image-wrapper {
   display: flex;
-  overflow-x: auto;
-  padding: 1rem;
-  gap: 1rem;
-  scrollbar-width: thin;
-  scrollbar-color: #999 transparent;
+  gap: 10px;
+  max-width: 700px;       /* limitar largura total do container */
 }
 
-.anime-scroll::-webkit-scrollbar {
-  height: 8px;
+.highlight-image-wrapper img {
+  flex: 1;
+  height: 180px;          /* altura menor */
+  object-fit: cover;
+  border-radius: 0;
 }
 
-.anime-scroll::-webkit-scrollbar-thumb {
-  background-color: #aaa;
-  border-radius: 4px;
+
+.banner-image {
+  width: 100%;            /* ocupa a largura desejada */
+  height: 300px;          /* altura fixa que você quer para o banner */
+  object-fit: cover;      /* cobre o espaço mantendo proporção */
+  object-position: center; /* foca no centro da imagem */
 }
 
-.anime-card {
-  min-width: 180px;
-  flex-shrink: 0;
-  background: white;
-  border-radius: 10px;
-  padding: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
+
+.highlight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;  /* mantém alinhamento à esquerda */
+  max-width: 800px;
+  margin: 0; /* evita centralização */
+  text-align: left;
 }
 
-.anime-card:hover {
-  transform: scale(1.03);
-}
 
-.anime-card img {
-  width: 200px;
-  border-radius: 6px;
-}
-
-.anime-card h3 {
-  margin: 0.5rem 0 0.2rem;
-  font-size: 1rem;
-  word-break: break-word;   /* quebra palavras longas */
-  white-space: normal;      /* permite múltiplas linhas */
-  overflow-wrap: break-word;
-  max-width: 160px;         /* controla largura máxima do título */
-}
-
-.anime-card p {
+.highlight img {
+  display: block;
   margin: 0;
-  color: #555;
-  font-size: 0.9rem;
+  max-width: 800px;
+  width: 100%;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+
+.nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  z-index: 1;
+}
+
+.nav-button:hover {
+  background: black;
+  color: white;
+}
+
+.nav-button.left {
+  left: 10px;
+}
+
+.nav-button.right {
+  right: 10px;
+}
+
+.highlight-info {
+  margin-top: 1rem;
+  text-align: left;
+  width: 100%;
+}
+
+.highlight-info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.highlight-info p {
+  color: #333;
+  font-size: 1rem;
 }

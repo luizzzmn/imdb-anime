@@ -1,15 +1,9 @@
-console.log('Home.jsx carregado');
-
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
 
-const animeURL = import.meta.env.VITE_API;
-const apiKey = import.meta.env.VITE_API_KEY;
-
 const Home = () => {
-
   const [animes, setAnimes] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -20,13 +14,11 @@ const Home = () => {
             id
             title {
               romaji
-              english
-              native
             }
             coverImage {
-              large
+              extraLarge
             }
-            description(asHtml: false)
+            bannerImage 
             averageScore
           }
         }
@@ -52,25 +44,44 @@ const Home = () => {
       });
   }, []);
 
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? animes.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === animes.length - 1 ? 0 : prev + 1));
+  };
+
   return (
-    <div className="App">
-      <h1>Trending Animes</h1>
+    <div className="highlight-container">
       {loading ? (
         <p>Carregando...</p>
       ) : (
-        <div className="anime-scroll">
-          {animes.map((anime) => (
-            <div key={anime.id} className="anime-card">
-              <img src={anime.coverImage.large} alt={anime.title.romaji} />
-              <h3>{anime.title.romaji}</h3>
-              <p>Nota: {anime.averageScore}/100</p>
-            </div>
-          ))}
-        </div>
+        <>
+          <div className="highlight-image-wrapper">
+            <button className="nav-button left" onClick={handlePrev}>&lt;</button>
+            <img
+              src={animes[currentIndex].coverImage.extraLarge}
+              alt={animes[currentIndex].title.romaji}
+              className="highlight-img"
+            />
+
+            <img className='banner-img'
+             src={animes[currentIndex].bannerImage}
+            />
+            
+            <button className="nav-button right" onClick={handleNext}>&gt;</button>
+          </div>
+
+          <div className="highlight-info">
+            <h2>Em Destaque: </h2> 
+            <h2>{animes[currentIndex].title.romaji}</h2>
+            <p>Nota: {animes[currentIndex].averageScore}/100</p>
+          </div>
+        </>
       )}
     </div>
   );
-}
+};
 
-export default Home
-
+export default Home;
