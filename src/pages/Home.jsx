@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [animes, setAnimes] = useState([]);
@@ -60,15 +61,15 @@ const Home = () => {
         <>
           <div className="highlight-image-wrapper">
             <button className="nav-button left" onClick={handlePrev}>&lt;</button>
+
+            <Link to={`/anime/${animes[currentIndex].id}`}>
             <img
               src={animes[currentIndex].coverImage.extraLarge}
               alt={animes[currentIndex].title.romaji}
               className="highlight-img"
             />
-
-            <img className='banner-img'
-             src={animes[currentIndex].bannerImage}
-            />
+            </Link>
+          
             
             <button className="nav-button right" onClick={handleNext}>&gt;</button>
           </div>
