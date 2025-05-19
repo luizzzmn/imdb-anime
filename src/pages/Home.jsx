@@ -11,7 +11,7 @@ const Home = () => {
     const query = `
       query {
         Page(perPage: 10) {
-          media(type: ANIME, sort: TRENDING_DESC) {
+          media(type: ANIME, sort: FAVOURITES_DESC) {
             id
             title {
               romaji
