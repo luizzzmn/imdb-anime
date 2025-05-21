@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // ← importa o hook
+import {getTopAnime} from '../API/getTopAnime.js'
 import './Home.css';
 
 const Home = () => {
@@ -8,40 +9,18 @@ const Home = () => {
   const navigate = useNavigate(); // ← inicializa o hook
 
   useEffect(() => {
-    const query = `
-      query {
-        Page(perPage: 10) {
-          media(type: ANIME, sort: TRENDING_DESC) {
-            id
-            title {
-              romaji
-            }
-            coverImage {
-              extraLarge
-            }
-            averageScore
-          }
-        }
+    async function fetchData() {
+      try {
+        const data = await getTopAnime(10);
+        setAnimes(data.data);
+      } catch (err) {
+        console.error("Erro ao buscar dados do anime:", err);
+      } finally {
+        setLoading(false);
       }
-    `;
+    }
 
-    fetch("https://graphql.anilist.co", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: JSON.stringify({ query })
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setAnimes(data.data.Page.media);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Erro ao buscar animes:", err);
-        setLoading(false);
-      });
+    fetchData();
   }, []);
 
   // ← função para ir à página do anime
@@ -59,14 +38,14 @@ const Home = () => {
           <div className="anime-list">
             {animes.map((anime) => (
               <div
-                key={anime.id}
+                key={anime.mal_id}
                 className="anime-item"
-                onClick={() => handleAnimeClick(anime.id)} // ← clique chama navegação
+                onClick={() => handleAnimeClick(anime.mal_id)} // ← clique chama navegação
                 style={{ cursor: 'pointer' }} // ← estilo visual de botão
               >
-                <img src={anime.coverImage.extraLarge} alt={anime.title.romaji} />
-                <h3>{anime.title.romaji}</h3>
-                <p>Nota: {anime.averageScore}/100</p>
+                <img src={anime.images.jpg.image_url} alt={anime.title} />
+                <h3>{anime.title}</h3>
+                <p>Nota: {anime.score}/10</p>
               </div>
             ))}
           </div>
@@ -83,8 +62,6 @@ const Home = () => {
       </div>
 
     </div>
-    
-  
   );
 };
 

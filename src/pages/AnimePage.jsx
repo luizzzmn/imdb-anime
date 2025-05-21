@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { getAnime } from '../API/getAnime.js'
 import './AnimePage.css';
 
 function AnimePage() {
@@ -8,70 +9,43 @@ function AnimePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const query = `
-      query ($id: Int) {
-        Media(id: $id, type: ANIME) {
-          title {
-            romaji
-          }
-          description(asHtml: false)
-          bannerImage
-          coverImage {
-            large
-          }
-          averageScore
-          streamingEpisodes {
-            title
-            thumbnail
-            url
-          }
-          synonyms
-        }
+    async function fetchData() {
+      try {
+        const data = await getAnime(id); // id já vem da URL
+        setAnime(data);
+      } catch (err) {
+        console.error("Erro ao buscar anime:", err);
+      } finally {
+        setLoading(false);
       }
-    `;
+    }
 
-    fetch("https://graphql.anilist.co", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: JSON.stringify({ query, variables: { id: Number(id) } })
-    })
-      .then(res => res.json())
-      .then(data => {
-        setAnime(data.data.Media);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error("Erro ao buscar dados do anime:", err);
-        setLoading(false);
-      });
+    fetchData();
   }, [id]);
 
   if (loading) return <p>Carregando...</p>;
   if (!anime) return <p>Anime não encontrado.</p>;
 
-  const descricao = anime.description?.replace(/<br>/g, '\n') || "Descrição indisponível.";
+  const descricao = anime.synopsis?.replace(/<br>/g, '\n') || "Descrição indisponível.";
   const bestEpisode = anime.streamingEpisodes?.[0];
 
   return (
     <div className="anime-page">
-      {anime.bannerImage && (
-        <img className="anime-banner" src={anime.bannerImage} alt="Banner do anime" />
+      {anime.pictures && (
+        <img className="anime-banner" src={anime.pictures} alt="Banner do anime" />
       )}
 
       <div className="anime-content">
-        <h1 className="anime-title">{anime.title.romaji}</h1>
+        <h1 className="anime-title">{anime.title_english || anime.title}</h1>
 
         <div className="anime-info">
-          <img src={anime.coverImage.large} alt={anime.title.romaji} className="anime-cover" />
+          <img src={anime.images.jpg.large_image_url} alt={anime.title} className="anime-cover" />
           <div className="anime-description">
             <h2>Descrição</h2>
             <p>{descricao}</p>
-            <p><strong>Nota média:</strong> {anime.averageScore}/100</p>
+            <p><strong>Nota média:</strong> {anime.score}/10</p>
             {anime.synonyms?.length > 0 && (
-              <p><strong>Títulos alternativos:</strong> {anime.synonyms.join(', ')}</p>
+              <p><strong>Títulos alternativos:</strong> {anime.titles.map(t => t.title).join(', ')}</p>
             )}
           </div>
         </div>
