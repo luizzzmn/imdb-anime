@@ -10,7 +10,7 @@ const Home = () => {
   useEffect(() => {
     const query = `
       query {
-        Page(perPage: 20) {
+        Page(perPage: 10) {
           media(type: ANIME, sort: TRENDING_DESC) {
             id
             title {

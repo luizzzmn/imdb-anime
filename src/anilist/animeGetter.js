@@ -1,49 +1,12 @@
 
-function get_Trending_Anime(query){
-    let url = "https://graphql.anilist.co"
-    const htmlString = `
-    query {
-        Page(perPage: 10) {
-        media(type: ANIME, sort: FAVOURITES_DESC) {
-            id
-            title {
-            romaji
-            english
-            native
-            }
-            coverImage {
-            large
-            }
-            description
-            averageScore
-            popularity
-        }
-        }
-    }
-    `;
-    const variables = {
-    search: query
-    };
-
-    fetch(url, {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-    },
-    body: JSON.stringify({
-        query: htmlString,
-        variables: variables
-    })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data.data.Page.media);
-    })
-    .catch(err => {
-        console.error("Erro na requisição:", err);
-    });
+function get_Trending_Anime(){
+fetch("https://api.jikan.moe/v4/anime/519/videos")
+  .then(res => res.json())
+  .then(data => {
+    console.log(data.episodes);
+  })
+  .catch(err => console.error("Erro na Jikan API:", err));
 
 }
 
-get_Trending_Anime("Jujutsu Kaisen")
+get_Trending_Anime()
