@@ -1,7 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {BiCameraMovie, BiSearchAlt2} from "react-icons/bi";
+import { useEffect, useState } from 'react';
+
 
 const Navbar = () => {
+  
+
   return (
     <nav id="navbar">
       <h2 className="logo">

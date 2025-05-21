@@ -1,0 +1,67 @@
+.anime-banner {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  margin-bottom: -4px;
+}
+
+.anime-page {
+  background-color: #f9f9f9;
+  padding-top: 0;
+}
+
+.anime-content {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.anime-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.anime-info {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.anime-cover {
+  width: 200px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.anime-description {
+  flex: 1;
+  text-align: left;
+}
+
+.anime-description p {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.best-episode {
+  text-align: left;
+  margin-top: 2rem;
+}
+
+.best-episode img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.anime-cover {
+  width: 250px;            /* largura fixa */
+  height: 350px;           /* altura fixa */
+  object-fit: cover;       /* mantém proporção cortando excesso */
+  border-radius: 10px;
+}

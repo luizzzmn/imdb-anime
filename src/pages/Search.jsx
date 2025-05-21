@@ -1,4 +1,6 @@
-function SearchPage() {
+
+function Search() {
+
   return (
     <div>
       <h1>Página de Busca</h1>
@@ -6,4 +8,4 @@ function SearchPage() {
   )
 }
 
-export default SearchPage
+export default Search

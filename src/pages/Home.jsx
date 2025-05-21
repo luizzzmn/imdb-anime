@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // ← importa o hook
 import './Home.css';
-import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [animes, setAnimes] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); // ← inicializa o hook
 
   useEffect(() => {
     const query = `
       query {
-        Page(perPage: 10) {
+        Page(perPage: 20) {
           media(type: ANIME, sort: TRENDING_DESC) {
             id
             title {
@@ -19,7 +19,6 @@ const Home = () => {
             coverImage {
               extraLarge
             }
-            bannerImage 
             averageScore
           }
         }
@@ -45,43 +44,47 @@ const Home = () => {
       });
   }, []);
 
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? animes.length - 1 : prev - 1));
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev === animes.length - 1 ? 0 : prev + 1));
+  // ← função para ir à página do anime
+  const handleAnimeClick = (id) => {
+    navigate(`/anime/${id}`);
   };
 
   return (
-    <div className="highlight-container">
+    <div className="scroll-highlight-container">
+      <h2 className="scroll-title">Em Destaque</h2>
       {loading ? (
         <p>Carregando...</p>
       ) : (
-        <>
-          <div className="highlight-image-wrapper">
-            <button className="nav-button left" onClick={handlePrev}>&lt;</button>
-
-            <Link to={`/anime/${animes[currentIndex].id}`}>
-            <img
-              src={animes[currentIndex].coverImage.extraLarge}
-              alt={animes[currentIndex].title.romaji}
-              className="highlight-img"
-            />
-            </Link>
-          
-            
-            <button className="nav-button right" onClick={handleNext}>&gt;</button>
+        <div className="scroll-wrapper">
+          <div className="anime-list">
+            {animes.map((anime) => (
+              <div
+                key={anime.id}
+                className="anime-item"
+                onClick={() => handleAnimeClick(anime.id)} // ← clique chama navegação
+                style={{ cursor: 'pointer' }} // ← estilo visual de botão
+              >
+                <img src={anime.coverImage.extraLarge} alt={anime.title.romaji} />
+                <h3>{anime.title.romaji}</h3>
+                <p>Nota: {anime.averageScore}/100</p>
+              </div>
+            ))}
           </div>
-
-          <div className="highlight-info">
-            <h2>Em Destaque: </h2> 
-            <h2>{animes[currentIndex].title.romaji}</h2>
-            <p>Nota: {animes[currentIndex].averageScore}/100</p>
-          </div>
-        </>
+        </div>
       )}
+      <div className="extra-content">
+        <h2>Últimas obras avaliadas:</h2>
+        <p>Esse espaço pode ser usado para recomendações, resenhas ou outros conteúdos.</p>
+      </div>
+
+      <div className="extra-content">
+        <h2>Progresso Pessoal:</h2>
+        <p>Esse espaço pode ser usado para recomendações, resenhas ou outros conteúdos.</p>
+      </div>
+
     </div>
+    
+  
   );
 };
 
