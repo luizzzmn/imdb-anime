@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getAnime } from '../API/getAnime.js';
+import { getAnime } from '../API/getAnime';
+import { getAniListInfoByMalId } from '../API/anilist';
 import './AnimePage.css';
 
 function AnimePage() {
   const { id } = useParams();
-  const [anime, setAnime] = useState(null);
+  const [animeJikan, setAnimeJikan] = useState(null);
+  const [animeAnilist, setAnimeAnilist] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [banner, setBanner] = useState(null);
-  const [bestEpisode, setBestEpisode] = useState(null);
 
   useEffect(() => {
-    async function fetchAnimeData() {
+    async function fetchData() {
       try {
-        const animeData = await getAnime(id);
-        setAnime(animeData);
+        const jikanData = await getAnime(id);
+        setAnimeJikan(jikanData);
 
-        // Banner (usa imagem do trailer como banner alternativo)
-        const bannerUrl = animeData.trailer?.images?.maximum_image_url || null;
-        setBanner(bannerUrl);
+        const anilistData = await getAniListInfoByMalId(id);
+        setAnimeAnilist(anilistData);
       } catch (err) {
         console.error("Erro ao buscar anime:", err);
       } finally {
@@ -26,51 +25,36 @@ function AnimePage() {
       }
     }
 
-    //função para pegar melhor episodio
-    async function fetchBestEpisode() {
-      try {
-        const response = await fetch(`https://api.jikan.moe/v4/anime/${id}/episodes`);
-        const data = await response.json();
-        if (data.data && data.data.length > 0) {
-          const best = data.data.reduce((a, b) => (b.score || 0) > (a.score || 0) ? b : a);
-          setBestEpisode(best);
-        }
-      } catch (err) {
-        console.error("Erro ao buscar episódios:", err);
-      }
-    }
-
-    fetchAnimeData();
-    fetchBestEpisode();
+    fetchData();
   }, [id]);
 
   if (loading) return <p>Carregando...</p>;
-  if (!anime) return <p>Anime não encontrado.</p>;
+  if (!animeJikan) return <p>Anime não encontrado.</p>;
 
-  const descricao = anime.synopsis?.replace(/<br>/g, '\n') || "Descrição indisponível.";
+  const descricao = animeAnilist?.description?.replace(/<br>/g, '\n') || animeJikan.synopsis || "Descrição indisponível.";
+  const bestEpisode = animeJikan.streamingEpisodes?.[0];
 
   return (
     <div className="anime-page">
-      {banner && <img className="anime-banner" src={banner} alt="Banner do anime" />}
+      {animeAnilist?.bannerImage && (
+        <img className="anime-banner" src={animeAnilist.bannerImage} alt="Banner do anime" />
+      )}
 
       <div className="anime-content">
-        <h1 className="anime-title">{anime.title_english || anime.title}</h1>
+        <h1 className="anime-title">{animeJikan.title_english || animeJikan.title}</h1>
 
         <div className="anime-info">
           <img
-            src={anime.images.jpg.large_image_url}
-            alt={anime.title}
+            src={animeJikan.images?.jpg?.large_image_url}
+            alt={animeJikan.title}
             className="anime-cover"
           />
           <div className="anime-description">
             <h2>Descrição</h2>
             <p>{descricao}</p>
-            <p><strong>Nota média:</strong> {anime.score || "N/A"}/10</p>
-            {anime.titles?.length > 1 && (
-              <p>
-                <strong>Títulos alternativos:</strong>{" "}
-                {anime.titles.map(t => t.title).join(', ')}
-              </p>
+            <p><strong>Nota média:</strong> {animeJikan.score || animeAnilist?.averageScore / 10}/10</p>
+            {animeJikan.synonyms?.length > 0 && (
+              <p><strong>Títulos alternativos:</strong> {animeJikan.titles.map(t => t.title).join(', ')}</p>
             )}
           </div>
         </div>
@@ -78,12 +62,10 @@ function AnimePage() {
         {bestEpisode && (
           <div className="best-episode">
             <h2>Episódio melhor avaliado</h2>
-            {bestEpisode.images?.jpg?.image_url && (
-              <img src={bestEpisode.images.jpg.image_url} alt={bestEpisode.title} />
-            )}
-            <h3>{bestEpisode.title}</h3>
-            <p><strong>Score:</strong> {bestEpisode.score || "N/A"}</p>
-            <p>{bestEpisode.synopsis || "Sem descrição disponível."}</p>
+            <a href={bestEpisode.url} target="_blank" rel="noopener noreferrer">
+              <img src={bestEpisode.thumbnail} alt={bestEpisode.title} />
+              <p>{bestEpisode.title}</p>
+            </a>
           </div>
         )}
       </div>

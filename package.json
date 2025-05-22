@@ -13,6 +13,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "graphql-request": "^7.1.2",
     "imdb-anime": "file:",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
