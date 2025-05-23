@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // ← importa o hook
 import {getTopAnime} from '../API/getTopAnime.js'
-import './Home.css';
+import './AnimeList.css';
 
 function TextoLimitado({ texto, limite = 20 }) {
   if (!texto) return null;
   return <h5 className="anime-title">{texto.length > limite ? texto.slice(0, limite) + '...' : texto}</h5>;
 }
 
-const Home = () => {
+const TopAnime = () => {
   const [animes, setAnimes] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate(); // ← inicializa o hook
@@ -32,11 +32,8 @@ const Home = () => {
   const handleAnimeClick = (id) => {
     navigate(`/anime/${id}`);
   };
-
-  return (
-    <div className="scroll-highlight-container">
-      <h2 className="scroll-title">Em Destaque</h2>
-      {loading ? (
+  
+  return (<div>{loading ? (
         <p>Carregando...</p>
       ) : (
         <div className="scroll-wrapper">
@@ -55,19 +52,7 @@ const Home = () => {
             ))}
           </div>
         </div>
-      )}
-      <div className="extra-content">
-        <h2>Próximos Lançamentos</h2>
-        <p>Esse espaço pode ser usado para recomendações, resenhas ou outros conteúdos.</p>
-      </div>
-
-      <div className="extra-content">
-        <h2>Progresso Pessoal:</h2>
-        <p>Esse espaço pode ser usado para recomendações, resenhas ou outros conteúdos.</p>
-      </div>
-
-    </div>
-  );
+      )}</div>);
 };
 
-export default Home;
+export default TopAnime;
