@@ -19,7 +19,7 @@
 
 .banner-image {
   width: 100%;            /* ocupa a largura desejada */
-  height: 300px;          /* altura fixa que você quer para o banner */
+  height: 300px;          /* altura fixa para o banner */
   object-fit: cover;      /* cobre o espaço mantendo proporção */
   object-position: center; /* foca no centro da imagem */
 }
@@ -88,7 +88,6 @@
 
 .scroll-highlight-container {
   padding: 2rem 1rem;
-  min-height: 100vmin;
 }
 
 .scroll-title {
@@ -121,7 +120,7 @@
 }
 
 .scroll-item img {
-  width: 100%;
+  max-width: 100%;
   height: auto;
   object-fit: cover;
   border-radius: 6px;
@@ -134,11 +133,51 @@
 }
 
 .anime-item {
-  min-width: 160px;
+  width: 200px;              
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.anime-item img{
-  max-height: 500px;
+.anime-item img {
+  width: 100%;
+  height: 300px; /*manter altura fixa*/
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+  transition: transform 0.3s ease;
 }
 
+.anime-item img:hover {
+  transform: scale(1.10); 
+  z-index: 2;
+}
+
+.proximos-lancamentos {
+  margin-top: 40px;
+  border-radius: 8px;
+  
+
+}
+
+.progresso-pessoal{
+  margin-top: 40px;
+  border-radius: 8px;
+  
+}
+
+.destaques {
+  margin-top: 40px;
+  border-radius: 8px;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main.content {
+  flex: 1; 
+}
