@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     <nav id="navbar">
       <h2 className="logo">
-        <Link to="/imdb-anime/">ANIME IMDB</Link>
+        <Link to="">ANIME IMDB</Link>
       </h2>
 
       <form className="search-form">

@@ -4,6 +4,11 @@ import { getAnime } from '../API/getAnime';
 import { getAniListInfoByMalId } from '../API/anilist';
 import './AnimePage.css';
 
+function TextoLimitado({ texto, limite = 20 }) {
+  if (!texto) return null;
+  return <h1 className="anime-title">{texto.length > limite ? texto.slice(0, limite) + '...' : texto}</h1>;
+}
+
 function AnimePage() {
   const { id } = useParams();
   const [animeJikan, setAnimeJikan] = useState(null);
@@ -31,7 +36,7 @@ function AnimePage() {
   if (loading) return <p>Carregando...</p>;
   if (!animeJikan) return <p>Anime não encontrado.</p>;
 
-  const descricao = animeAnilist?.description?.replace(/<br>/g, '\n') || animeJikan.synopsis || "Descrição indisponível.";
+  const descricao = animeJikan.synopsis || "Descrição indisponível.";
   const bestEpisode = animeJikan.streamingEpisodes?.[0];
 
   return (

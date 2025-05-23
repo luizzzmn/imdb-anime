@@ -39,7 +39,7 @@
 
 .anime-description {
   flex: 1;
-  text-align: left;
+  text-align: justify;
 }
 
 .anime-description p {
