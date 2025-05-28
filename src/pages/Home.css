@@ -1,105 +1,86 @@
-.highlight-container {
-  padding: 2rem 1rem;
-  /* removido text-align: center */
-}
 
-.highlight-image-wrapper {
-  display: flex;
-  gap: 10px;
-  max-width: 700px;       /* limitar largura total do container */
-}
-
-.highlight-image-wrapper img {
-  flex: 1;
-  height: 180px;          /* altura menor */
-  object-fit: cover;
-  border-radius: 0;
-}
-
-
-.banner-image {
-  width: 100%;            /* ocupa a largura desejada */
-  height: 300px;          /* altura fixa para o banner */
-  object-fit: cover;      /* cobre o espaço mantendo proporção */
-  object-position: center; /* foca no centro da imagem */
-}
-
-
-.highlight {
+.page-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;  /* mantém alinhamento à esquerda */
-  max-width: 800px;
-  margin: 0; /* evita centralização */
-  text-align: left;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0c29, #27548A, #183B4E);
+  font-family: 'M PLUS Rounded 1c', 'Segoe UI', sans-serif;
+  color: #1c1c1c;
 }
 
-
-.highlight img {
-  display: block;
-  margin: 0;
-  max-width: 800px;
-  width: 100%;
-  border-radius: 0;
-  box-shadow: none;
+main.content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-
-.nav-button {
-  position: absolute;
-  bottom: 10px;
-  transform: translateY(0%);
-  background: rgba(255, 255, 255, 0.7);
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-  z-index: 1;
+h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
 }
 
-.nav-button:hover {
-  background: black;
-  color: white;
+p {
+  color: #ffffff;
 }
 
-.nav-button.left {
-  left: 10px;
-}
-
-.nav-button.right {
-  right: 10px;
-}
-
-.highlight-info {
-  margin-top: 1rem;
-  text-align: left;
-  width: 100%;
-}
-
-.highlight-info h2 {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.highlight-info p {
-  color: #333;
+.anime-title {
   font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+  color: #27548A;
+  text-align: left;
 }
+
+
+.anime-list {
+  display: flex;
+  gap: 1.2rem;
+  padding-bottom: 1rem;
+}
+
+.anime-item {
+  width: 200px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 0.7rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.anime-item:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.anime-item img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+
 
 .scroll-highlight-container {
-  padding: 2rem 1rem;
+  padding: 2rem 0;
 }
 
 .scroll-title {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   margin-bottom: 1rem;
-  text-align: left;
+  color: #ffffff;
 }
 
 .scroll-wrapper {
   width: 100%;
   overflow-x: auto;
-  margin-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
 
@@ -108,76 +89,61 @@
 }
 
 .scroll-wrapper::-webkit-scrollbar-thumb {
-  background-color: #aaa;
+  background-color: #9baacf;
   border-radius: 10px;
 }
 
-.scroll-item {
-  min-width: 200px;
-  flex-shrink: 0;
-  scroll-snap-align: start;
-  text-align: left;
+
+.destaques,
+.proximos-lancamentos,
+.progresso-pessoal {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background: #27548A;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
 }
 
-.scroll-item img {
-  max-width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 6px;
-}
 
-.anime-list {
-  display: flex;
-  gap: 1rem;
-  padding-bottom: 1rem;
-}
 
-.anime-item {
-  width: 200px;              
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.anime-item img {
-  width: 100%;
-  height: 300px; /*manter altura fixa*/
-  object-fit: cover;
-  border-radius: 6px;
-  display: block;
-  transition: transform 0.3s ease;
-}
-
-.anime-item img:hover {
-  transform: scale(1.10); 
-  z-index: 2;
-}
-
-.proximos-lancamentos {
-  margin-top: 40px;
+button {
+  background-color: #3e63dd;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
   border-radius: 8px;
-  
-
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
-.progresso-pessoal{
-  margin-top: 40px;
-  border-radius: 8px;
-  
+button:hover {
+  background-color: #2b4bbb;
 }
 
-.destaques {
-  margin-top: 40px;
-  border-radius: 8px;
+
+
+.anime-item p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #ffffff;
+  font-weight: 500;
 }
 
-.page-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
 
-main.content {
-  flex: 1; 
+@media (max-width: 768px) {
+  .anime-item {
+    width: 150px;
+  }
+
+  .anime-item img {
+    height: 220px;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  .scroll-title {
+    font-size: 1.2rem;
+  }
 }
