@@ -19,6 +19,7 @@
 }
 
 .anime-title {
+  color: #27548A;
   font-size: 2rem;
   margin-bottom: 1rem;
 }
@@ -38,13 +39,19 @@
 }
 
 .anime-description {
+  color: #27548A;
   flex: 1;
   text-align: justify;
 }
 
 .anime-description p {
+  color: #27548A;
   margin-bottom: 1rem;
   line-height: 1.5;
+}
+
+.anime-description h2 {
+  color: #27548A;
 }
 
 .best-episode {
