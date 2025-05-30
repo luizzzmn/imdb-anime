@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // ← importa o hook
-import {getTopAnime} from '../API/getTopAnime.js'
+import { useNavigate } from 'react-router-dom';
+import { getTopAnime } from '../API/getTopAnime.js';
+import { getUpcomingAnime } from '../API/getUpcomingAnime.js';
+import { getTrendingAnime } from '../API/getTrendingAnime.js';
 import './Home.css';
+import Footer from '../components/Footer';
 
 function TextoLimitado({ texto, limite = 20 }) {
   if (!texto) return null;
@@ -9,15 +12,43 @@ function TextoLimitado({ texto, limite = 20 }) {
 }
 
 const Home = () => {
-  const [animes, setAnimes] = useState([]);
+  const [TrendingAnimes, setTrendingAnimes] = useState([]);
+  const [TopAnimes, setTopAnimes] = useState([]);
+  const [UpcomingAnimes, setUpcomingAnimes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // ← inicializa o hook
+  const navigate = useNavigate();
+
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await getTopAnime(10);
-        setAnimes(data.data);
+        const data = await getTrendingAnime();
+        setTrendingAnimes(data.data);
+      } catch (err) {
+        console.error("Erro ao buscar dados do anime:", err);
+      } finally {
+        setLoading(false);
+      }
+      
+      await delay(2000)
+
+      try {
+        const data = await getTopAnime();
+        console.log(data)
+        setTopAnimes(data.data);
+      } catch (err) {
+        console.error("Erro ao buscar dados do anime:", err);
+      } finally {
+        setLoading(false);
+      }
+
+      await delay(2000)
+
+      try {
+        const data = await getUpcomingAnime();
+        console.log(data)
+        setUpcomingAnimes(data.data);
       } catch (err) {
         console.error("Erro ao buscar dados do anime:", err);
       } finally {
@@ -28,44 +59,94 @@ const Home = () => {
     fetchData();
   }, []);
 
-  // ← função para ir à página do anime
   const handleAnimeClick = (id) => {
     navigate(`/anime/${id}`);
   };
 
   return (
-    <div className="scroll-highlight-container">
-      <h2 className="scroll-title">Em Destaque</h2>
-      {loading ? (
-        <p>Carregando...</p>
-      ) : (
-        <div className="scroll-wrapper">
-          <div className="anime-list">
-            {animes.map((anime) => (
-              <div
-                key={anime.mal_id}
-                className="anime-item"
-                onClick={() => handleAnimeClick(anime.mal_id)} // ← clique chama navegação
-                style={{ cursor: 'pointer' }} // ← estilo visual de botão
-              >
-                <img src={anime.images.jpg.image_url} alt={anime.title} />
-                <TextoLimitado texto={anime.title} limite={12}></TextoLimitado>
-                <p>Nota: {anime.score}/10</p>
+    <div className="page-container">
+      <main className="content">
+        <div className="scroll-highlight-container">
+          <div className="destaques">
+            <h2 className="scroll-title">Animes em Destaque:</h2>
+            {loading ? (
+              <p>Carregando...</p>
+            ) : (
+              <div className="scroll-wrapper">
+                <div className="anime-list">
+                  {TrendingAnimes.map((anime) => (
+                    <div
+                      key={anime.mal_id}
+                      className="anime-item"
+                      onClick={() => handleAnimeClick(anime.mal_id)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <img src={anime.images.jpg.image_url} alt={anime.title} />
+                      <TextoLimitado texto={anime.title} limite={12}></TextoLimitado>
+                      <p>Nota: {anime.score}/10</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
+            )}
+          </div>
+
+          <div className="destaques">
+            <h2 className="scroll-title">Obras com maiores notas:</h2>
+            {loading ? (
+              <p>Carregando...</p>
+            ) : (
+              <div className="scroll-wrapper">
+                <div className="anime-list">
+                  {TopAnimes.map((anime) => (
+                    <div
+                      key={anime.mal_id}
+                      className="anime-item"
+                      onClick={() => handleAnimeClick(anime.mal_id)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <img src={anime.images.jpg.image_url} alt={anime.title} />
+                      <TextoLimitado texto={anime.title} limite={12}></TextoLimitado>
+                      <p>Nota: {anime.score}/10</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="destaques">
+            <h2 className="scroll-title">Próximos lançamentos:</h2>
+            {loading ? (
+              <p>Carregando...</p>
+            ) : (
+              <div className="scroll-wrapper">
+                <div className="anime-list">
+                  {UpcomingAnimes.map((anime) => (
+                    <div
+                      key={anime.mal_id}
+                      className="anime-item"
+                      onClick={() => handleAnimeClick(anime.mal_id)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <img src={anime.images.jpg.image_url} alt={anime.title} />
+                      <TextoLimitado texto={anime.title} limite={12}></TextoLimitado>
+                      <p>Nota: {anime.score}/10</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="progresso-pessoal">
+            <h2>Progresso Pessoal</h2>
+            <p>carregando...</p>
           </div>
         </div>
-      )}
-      <div className="extra-content">
-        <h2>Próximos Lançamentos</h2>
-        <p>Esse espaço pode ser usado para recomendações, resenhas ou outros conteúdos.</p>
-      </div>
+      </main>
 
-      <div className="extra-content">
-        <h2>Progresso Pessoal:</h2>
-        <p>Esse espaço pode ser usado para recomendações, resenhas ou outros conteúdos.</p>
-      </div>
-
+      <Footer />
     </div>
   );
 };
