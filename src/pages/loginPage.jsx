@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Auth.css';
+import logo5 from '../imagens/logo6.png'
 
 function Login() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ function Login() {
     e.preventDefault();
 
     if (email === 'luiz@email.com' && senha === '123456') {
+      localStorage.setItem('usuarioLogado', JSON.stringify({ email }));
       alert('Login bem-sucedido!');
       navigate('/'); 
     } else {
@@ -20,6 +22,9 @@ function Login() {
 
   return (
     <div className="auth-container">
+      <div className="auth-logo">
+        <img src={logo5} alt="Logo" />
+      </div>
       <div className="auth-card">
         <h2 className="auth-title">Bem-vindo de volta!</h2>
         <p className="auth-subtitle">Acesse sua conta e continue sua jornada pelos animes</p>

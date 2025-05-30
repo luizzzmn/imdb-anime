@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Auth.css';
+import logo5 from '../imagens/logo6.png'
 
 function Register() {
   const navigate = useNavigate();
@@ -18,6 +19,9 @@ function Register() {
 
   return (
     <div className="auth-container">
+      <div className="auth-logo">
+              <img src={logo5} alt="Logo" />
+            </div>
       <div className="auth-card">
         <h2 className="auth-title">Crie sua conta!</h2>
         <p className="auth-subtitle">Junte-se à comunidade e acompanhe seus animes favoritos</p>

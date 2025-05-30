@@ -2,16 +2,20 @@
 .page-container {
   display: flex;
   flex-direction: column;
+  align-items: center;           /* Centraliza no eixo horizontal */
+  justify-content: center;       /* Centraliza no eixo vertical (opcional) */
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f0c29, #27548A, #183B4E);
+  background: linear-gradient(135deg, #0f0c29, #a27be1, #183B4E);
   font-family: 'M PLUS Rounded 1c', 'Segoe UI', sans-serif;
   color: #1c1c1c;
+  padding: 20px;                 /* Adiciona espaço interno */
 }
+
 
 main.content {
   flex: 1;
   padding: 2rem;
-  max-width: 1200px;
+  max-width: 2000px;
   margin: 0 auto;
 }
 
@@ -22,12 +26,13 @@ h2 {
   margin-bottom: 0.75rem;
 }
 
+
 p {
   color: #ffffff;
 }
 
 .anime-title {
-  font-size: 1rem;
+  font-size: 1.5rem !important;
   font-weight: 500;
   margin: 0;
   color: #27548A;
@@ -97,13 +102,15 @@ p {
 .destaques,
 .proximos-lancamentos,
 .progresso-pessoal {
-  margin-top: 3rem;
-  padding: 1.5rem;
-  background: #27548A;
+  width: 100%;
+  max-width: 1400px;              /* aumenta a largura máxima */
+  margin: 3rem auto;              /* centraliza */
+  padding: 2rem;                  /* mais espaço interno */
+  background: linear-gradient(135deg, #231e4f, #a27be1, #8175e0);
   border-radius: 12px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(8px);
 }
-
 
 
 button {
@@ -123,9 +130,13 @@ button:hover {
 
 
 .anime-item p {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: start;
   margin: 0;
   font-size: 0.95rem;
-  color: #ffffff;
+  color: #30233b;
   font-weight: 500;
 }
 

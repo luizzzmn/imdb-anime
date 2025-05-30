@@ -18,9 +18,15 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  // Verifica se o usuário está logado
+  const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+  
 
   useEffect(() => {
+
+    
     async function fetchData() {
       try {
         const data = await getTrendingAnime();
@@ -30,29 +36,23 @@ const Home = () => {
       } finally {
         setLoading(false);
       }
-      
+
       await delay(2000)
 
       try {
         const data = await getTopAnime();
-        console.log(data)
         setTopAnimes(data.data);
       } catch (err) {
         console.error("Erro ao buscar dados do anime:", err);
-      } finally {
-        setLoading(false);
       }
 
       await delay(2000)
 
       try {
         const data = await getUpcomingAnime();
-        console.log(data)
         setUpcomingAnimes(data.data);
       } catch (err) {
         console.error("Erro ao buscar dados do anime:", err);
-      } finally {
-        setLoading(false);
       }
     }
 
@@ -63,10 +63,24 @@ const Home = () => {
     navigate(`/anime/${id}`);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('usuarioLogado');
+    alert('Você saiu da conta.');
+    navigate('/login');
+  };
+
   return (
     <div className="page-container">
       <main className="content">
         <div className="scroll-highlight-container">
+
+          {usuarioLogado && (
+            <div className="progresso-pessoal">
+              <h2>Progresso Pessoal</h2>
+              <p>Comece a avaliar suas obras!</p>
+            </div>
+          )}
+
           <div className="destaques">
             <h2 className="scroll-title">Animes em Destaque:</h2>
             {loading ? (
@@ -82,7 +96,7 @@ const Home = () => {
                       style={{ cursor: 'pointer' }}
                     >
                       <img src={anime.images.jpg.image_url} alt={anime.title} />
-                      <TextoLimitado texto={anime.title} limite={12}></TextoLimitado>
+                      <TextoLimitado texto={anime.title} limite={18} />
                       <p>Nota: {anime.score}/10</p>
                     </div>
                   ))}
@@ -106,7 +120,7 @@ const Home = () => {
                       style={{ cursor: 'pointer' }}
                     >
                       <img src={anime.images.jpg.image_url} alt={anime.title} />
-                      <TextoLimitado texto={anime.title} limite={12}></TextoLimitado>
+                      <TextoLimitado texto={anime.title} limite={18} />
                       <p>Nota: {anime.score}/10</p>
                     </div>
                   ))}
@@ -115,7 +129,7 @@ const Home = () => {
             )}
           </div>
 
-          <div className="destaques">
+          <div className="proximos-lancamentos">
             <h2 className="scroll-title">Próximos lançamentos:</h2>
             {loading ? (
               <p>Carregando...</p>
@@ -130,7 +144,7 @@ const Home = () => {
                       style={{ cursor: 'pointer' }}
                     >
                       <img src={anime.images.jpg.image_url} alt={anime.title} />
-                      <TextoLimitado texto={anime.title} limite={12}></TextoLimitado>
+                      <TextoLimitado texto={anime.title} limite={18} />
                       <p>Nota: {anime.score}/10</p>
                     </div>
                   ))}
@@ -139,10 +153,7 @@ const Home = () => {
             )}
           </div>
 
-          <div className="progresso-pessoal">
-            <h2>Progresso Pessoal</h2>
-            <p>carregando...</p>
-          </div>
+          
         </div>
       </main>
 

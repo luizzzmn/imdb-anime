@@ -30,3 +30,22 @@
   height: 200px;
   object-fit: cover;
 }
+
+.navbar-logo {
+  height: 40px; 
+  width: auto;
+}
+
+
+.logout-button {
+  background: #8175e0;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+}
+
+.logout-button:hover {
+  text-decoration: underline;
+}

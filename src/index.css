@@ -28,21 +28,14 @@ a:hover{
 }
 
 #navbar {
-  background-color: aliceblue;
+  background: white;
   color: black;
   padding: 12px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
-}
-
-.logo a {
-  font-size: 1rem;
-  font-weight: 300; /* mais fino */
-  text-decoration: none;
-  color: black;
+  
 }
 
 .search-form {
