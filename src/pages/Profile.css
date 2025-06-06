@@ -1,0 +1,67 @@
+.perfil-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0c29, #a27be1, #183B4E);
+  font-family: 'M PLUS Rounded 1c', 'Segoe UI', sans-serif;
+  color: #ffffff;
+  padding: 2rem;
+}
+
+.perfil-card {
+  background: linear-gradient(135deg, #231e4f, #a27be1, #8175e0);
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(6px);
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+.perfil-card h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.perfil-card p {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+  color: #f2f2f2;
+}
+
+.perfil-info-label {
+  font-weight: bold;
+  color: #d8cfff;
+}
+
+.perfil-edit-button {
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.4rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #3e63dd;
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.perfil-edit-button:hover {
+  background-color: #2b4bbb;
+}
+
+@media (max-width: 768px) {
+  .perfil-card {
+    padding: 1.2rem;
+  }
+
+  .perfil-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .perfil-card p {
+    font-size: 1rem;
+  }
+}
