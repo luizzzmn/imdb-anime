@@ -20,9 +20,13 @@ function AnimePage() {
       try {
         const jikanData = await getAnime(id);
         setAnimeJikan(jikanData);
-
+        
+        if(jikanData.episodes != null){
         const anilistData = await getAniListInfoByMalId(id);
         setAnimeAnilist(anilistData);
+        }else{
+          setAnimeAnilist(null)
+        }
       } catch (err) {
         console.error("Erro ao buscar anime:", err);
       } finally {

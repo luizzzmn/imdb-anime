@@ -19,8 +19,6 @@ const Home = () => {
   const navigate = useNavigate();
   const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
 
-
-  
   const isLogado = !!localStorage.getItem('token');
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -140,12 +138,10 @@ const Home = () => {
                     <div
                       key={anime.mal_id}
                       className="anime-item"
-                      onClick={() => handleAnimeClick(anime.mal_id)}
                       style={{ cursor: 'pointer' }}
                     >
                       <img src={anime.images.jpg.image_url} alt={anime.title} />
                       <TextoLimitado texto={anime.title} limite={18} />
-                      <p>Nota: {anime.score}/10</p>
                     </div>
                   ))}
                 </div>
