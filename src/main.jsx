@@ -9,13 +9,14 @@ import { SearchProvider } from './context/SearchProvider.jsx'; // <- atualizado
 import './index.css';
 import Login from './pages/loginPage.jsx';
 import Register from './pages/registerPage.jsx';
+import { AuthProvider } from './context/AuthContext';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <SearchProvider>
+      <AuthProvider>
       <BrowserRouter basename="/imdb-anime">
         <Routes>
-          {/* Rotas com Navbar */}
           <Route path="/" element={<App />}>
             <Route index element={<Home />} />
             <Route path="anime/:id" element={<AnimePage />} />
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/register" element={<Register/>} />
         </Routes>
       </BrowserRouter>
+      </AuthProvider>
     </SearchProvider>
   </React.StrictMode>
 );

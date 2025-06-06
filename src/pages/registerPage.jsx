@@ -9,13 +9,31 @@ function Register() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    console.log('Novo usuário:', { nome, email, senha });
-    alert('Cadastro realizado com sucesso!');
-    navigate('/login');
-  };
+  try {
+    const response = await fetch('http://localhost:3000/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password: senha }),
+    });
+
+    if (response.ok) {
+      alert('Cadastro realizado com sucesso!');
+      navigate('/login');
+    } else {
+      const error = await response.json();
+      alert(`Erro: ${error.message || 'Não foi possível cadastrar.'}`);
+    }
+  } catch (error) {
+    console.error('Erro no cadastro:', error);
+    alert('Erro de conexão com o servidor.');
+  }
+};
+
 
   return (
     <div className="auth-container">

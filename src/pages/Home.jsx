@@ -17,16 +17,14 @@ const Home = () => {
   const [UpcomingAnimes, setUpcomingAnimes] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
-  // Verifica se o usuário está logado
   const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
 
-  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
   
+  const isLogado = !!localStorage.getItem('token');
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
   useEffect(() => {
-
-    
     async function fetchData() {
       try {
         const data = await getTrendingAnime();
@@ -64,9 +62,10 @@ const Home = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('usuarioLogado');
-    alert('Você saiu da conta.');
-    navigate('/login');
+  localStorage.removeItem('token');
+  localStorage.removeItem('usuarioLogado'); 
+  alert('Você saiu da conta.');
+  navigate('/login');
   };
 
   return (
@@ -74,7 +73,8 @@ const Home = () => {
       <main className="content">
         <div className="scroll-highlight-container">
 
-          {usuarioLogado && (
+
+          {isLogado && (
             <div className="progresso-pessoal">
               <h2>Progresso Pessoal</h2>
               <p>Comece a avaliar suas obras!</p>
@@ -153,7 +153,6 @@ const Home = () => {
             )}
           </div>
 
-          
         </div>
       </main>
 

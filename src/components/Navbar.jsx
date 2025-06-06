@@ -16,10 +16,11 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('usuarioLogado');
-    setUsuario(null);
-    navigate('/');
-  };
+  localStorage.removeItem('token');
+  localStorage.removeItem('usuarioLogado'); // opcional, mas bom limpar
+  alert('Você saiu da conta.');
+  navigate('/login');
+};
 
   return (
     <nav id="navbar">
