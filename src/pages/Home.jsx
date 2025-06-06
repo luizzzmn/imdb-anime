@@ -55,8 +55,8 @@ const Home = () => {
     fetchData();
   }, []);
 
-  const handleAnimeClick = (id) => {
-    navigate(`/anime/${id}`);
+  const handleAnimeClick = (anime) => {
+    navigate(`/anime/${anime.mal_id}`, {state: anime});
   };
 
   const handleLogout = () => {
@@ -90,7 +90,7 @@ const Home = () => {
                     <div
                       key={anime.mal_id}
                       className="anime-item"
-                      onClick={() => handleAnimeClick(anime.mal_id)}
+                      onClick={() => handleAnimeClick(anime)}
                       style={{ cursor: 'pointer' }}
                     >
                       <img src={anime.images.jpg.image_url} alt={anime.title} />
@@ -114,7 +114,7 @@ const Home = () => {
                     <div
                       key={anime.mal_id}
                       className="anime-item"
-                      onClick={() => handleAnimeClick(anime.mal_id)}
+                      onClick={() => handleAnimeClick(anime)}
                       style={{ cursor: 'pointer' }}
                     >
                       <img src={anime.images.jpg.image_url} alt={anime.title} />
@@ -138,6 +138,7 @@ const Home = () => {
                     <div
                       key={anime.mal_id}
                       className="anime-item"
+                      onClick={() => handleAnimeClick(anime)}
                       style={{ cursor: 'pointer' }}
                     >
                       <img src={anime.images.jpg.image_url} alt={anime.title} />

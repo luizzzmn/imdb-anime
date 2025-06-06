@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { getAnime } from '../API/getAnime';
 import { getAniListInfoByMalId } from '../API/anilist';
 import './AnimePage.css';
@@ -10,7 +10,8 @@ function TextoLimitado({ texto, limite = 20 }) {
 }
 
 function AnimePage() {
-  const { id } = useParams();
+  const location = useLocation();
+  const anime = location.state
   const [animeJikan, setAnimeJikan] = useState(null);
   const [animeAnilist, setAnimeAnilist] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -18,11 +19,11 @@ function AnimePage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const jikanData = await getAnime(id);
-        setAnimeJikan(jikanData);
+
+        setAnimeJikan(anime);
         
-        if(jikanData.episodes != null){
-        const anilistData = await getAniListInfoByMalId(id);
+        if(anime.episodes != null){
+        const anilistData = await getAniListInfoByMalId(anime.mal_id);
         setAnimeAnilist(anilistData);
         }else{
           setAnimeAnilist(null)
@@ -35,7 +36,7 @@ function AnimePage() {
     }
 
     fetchData();
-  }, [id]);
+  }, [anime]);
 
   if (loading) return <p>Carregando...</p>;
   if (!animeJikan) return <p>Anime não encontrado.</p>;
@@ -61,7 +62,7 @@ function AnimePage() {
           <div className="anime-description">
             <h2>Descrição</h2>
             <p>{descricao}</p>
-            <p><strong>Nota média:</strong> {animeJikan.score || animeAnilist?.averageScore / 10}/10</p>
+            {animeAnilist && (<p><strong>Nota média:</strong> {animeJikan.score || animeAnilist?.averageScore / 10}/10</p>)}
             {animeJikan.synonyms?.length > 0 && (
               <p><strong>Títulos alternativos:</strong> {animeJikan.titles.map(t => t.title).join(', ')}</p>
             )}
