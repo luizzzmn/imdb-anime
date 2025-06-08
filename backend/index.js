@@ -57,7 +57,7 @@ app.post('/login', async (req, res) => {
 
 // conecta ao banco de dados usando o mongoose
 mongoose
-  .connect("mongodb+srv://vinicius:AnibaseUsers@anibase.rgkvxwj.mongodb.net/usuarios")
+  .connect("placeholder")
   .then( () => console.log("Sucesso: Mongoose conectado ao banco de dados"))
   .catch( () => console.log("Erro: falha ao conectar o mongoose ao banco de dados"))
 
