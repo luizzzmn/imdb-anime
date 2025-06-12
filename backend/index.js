@@ -1,6 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import dotenv from 'dotenv';
+dotenv.config();
 
 // importando models
 import Usuario from './models/Usuario.js';
@@ -57,7 +59,7 @@ app.post('/login', async (req, res) => {
 
 // conecta ao banco de dados usando o mongoose
 mongoose
-  .connect("placeholder")
+  .connect(process.env.MONGODB_URI)
   .then( () => console.log("Sucesso: Mongoose conectado ao banco de dados"))
   .catch( () => console.log("Erro: falha ao conectar o mongoose ao banco de dados"))
 
