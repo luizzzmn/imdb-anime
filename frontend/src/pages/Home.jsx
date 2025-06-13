@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getTopAnime } from '../API/getTopAnime.js';
-import { getUpcomingAnime } from '../API/getUpcomingAnime.js';
-import { getTrendingAnime } from '../API/getTrendingAnime.js';
+
+import { getData } from '../API/getData';
+
 import './Home.css';
-import Footer from '../components/Footer.jsx';
+import Footer from '../components/Footer';
 
 function TextoLimitado({ texto, limite = 20 }) {
   if (!texto) return null;
   return <h5 className="anime-title">{texto.length > limite ? texto.slice(0, limite) + '...' : texto}</h5>;
 }
+
+let data = await getData()
 
 const Home = () => {
   const [TrendingAnimes, setTrendingAnimes] = useState([]);
@@ -17,40 +19,33 @@ const Home = () => {
   const [UpcomingAnimes, setUpcomingAnimes] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
-  // Verifica se o usuário está logado
   const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
 
+  const isLogado = !!localStorage.getItem('token');
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-  
 
   useEffect(() => {
-
-    
     async function fetchData() {
       try {
-        const data = await getTrendingAnime();
-        setTrendingAnimes(data.data);
+        console.log(data)
+        //const data = await getTrendingAnime();
+        setTrendingAnimes(data.TrendingAnime);
       } catch (err) {
         console.error("Erro ao buscar dados do anime:", err);
       } finally {
         setLoading(false);
       }
 
-      await delay(2000)
-
       try {
-        const data = await getTopAnime();
-        setTopAnimes(data.data);
+        //const data = await getTopAnime();
+        setTopAnimes(data.TopAnime);
       } catch (err) {
         console.error("Erro ao buscar dados do anime:", err);
       }
 
-      await delay(2000)
-
       try {
-        const data = await getUpcomingAnime();
-        setUpcomingAnimes(data.data);
+        //const data = await getUpcomingAnime();
+        setUpcomingAnimes(data.UpcomingAnime);
       } catch (err) {
         console.error("Erro ao buscar dados do anime:", err);
       }
@@ -64,9 +59,10 @@ const Home = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('usuarioLogado');
-    alert('Você saiu da conta.');
-    navigate('/login');
+  localStorage.removeItem('token');
+  localStorage.removeItem('usuarioLogado'); 
+  alert('Você saiu da conta.');
+  navigate('/login');
   };
 
   return (
@@ -74,7 +70,8 @@ const Home = () => {
       <main className="content">
         <div className="scroll-highlight-container">
 
-          {usuarioLogado && (
+
+          {isLogado && (
             <div className="progresso-pessoal">
               <h2>Progresso Pessoal</h2>
               <p>Comece a avaliar suas obras!</p>
@@ -145,7 +142,6 @@ const Home = () => {
                     >
                       <img src={anime.images.jpg.image_url} alt={anime.title} />
                       <TextoLimitado texto={anime.title} limite={18} />
-                      <p>Nota: {anime.score}/10</p>
                     </div>
                   ))}
                 </div>
@@ -153,7 +149,6 @@ const Home = () => {
             )}
           </div>
 
-          
         </div>
       </main>
 

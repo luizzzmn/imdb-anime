@@ -20,9 +20,10 @@ function AnimePage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const jikanData = await getAnime(id);
-        setAnimeJikan(jikanData);
+        const jikanData = await getAnime(id).then((anime) => setAnimeJikan(anime));
+        //setAnimeJikan(jikanData);
 
+        console.log(animeJikan);
         const anilistData = await getAniListInfoByMalId(id);
         setAnimeAnilist(anilistData);
       } catch (err) {
@@ -69,7 +70,7 @@ function AnimePage() {
   if (loading) return <p>Carregando...</p>;
   if (!animeJikan) return <p>Anime não encontrado.</p>;
 
-  const descricao = animeJikan.synopsis || "Descrição indisponível.";
+  const descricao = animeJikan.synopsis || "Descrição não encontrada.";
   const bestEpisode = animeJikan.streamingEpisodes?.[0];
 
   return (
@@ -120,3 +121,4 @@ function AnimePage() {
 }
 
 export default AnimePage;
+
