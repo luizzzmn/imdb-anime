@@ -105,19 +105,20 @@ function UserProfile() {
         </section>
 
         <section className="favoritos-section">
-          <h2>Animes Favoritos</h2>
-          <div className="anime-list">
-            {/* Exemplo estático — substitua por renderização real se tiver favoritos */}
-            <div className="anime-item">
-              <img src="https://placehold.co/200x280?text=Anime" alt="Anime" />
-              <p>Nome do Anime</p>
-            </div>
-            <div className="anime-item">
-              <img src="https://placehold.co/200x280?text=Anime" alt="Anime" />
-              <p>Nome do Anime</p>
-            </div>
-          </div>
-        </section>
+  <h2>Animes Favoritos</h2>
+  <div className="anime-list">
+    {usuario.favoritos && usuario.favoritos.length > 0 ? (
+      usuario.favoritos.map((anime) => (
+        <div key={anime.mal_id} className="anime-item">
+          <img src={anime.image_url} alt={anime.title} />
+          <p>{anime.title}</p>
+        </div>
+      ))
+    ) : (
+      <p>Você ainda não favoritou nenhum anime.</p>
+    )}
+  </div>
+</section>
       </main>
     </div>
   );

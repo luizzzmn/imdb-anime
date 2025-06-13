@@ -64,3 +64,32 @@ export const loginUsuario = async function (req, res) {
 
   res.status(200).json({ email: usuario.email, nome: usuario.nome, id: usuario._id });
 };
+
+// PATCH - Adicionar ou remover um anime dos favoritos
+export const toggleFavorito = async function (req, res) {
+  const { id } = req.params;
+  const { mal_id, title, image_url } = req.body;
+
+  try {
+    const usuario = await Usuario.findById(id);
+    if (!usuario) return res.status(404).json({ message: "Usuário não encontrado" });
+
+    const jaExiste = usuario.favoritos.some(fav => fav.mal_id === mal_id);
+
+    if (jaExiste) {
+      // Remove o favorito se já existir
+      usuario.favoritos = usuario.favoritos.filter(fav => fav.mal_id !== mal_id);
+    } else {
+      // Adiciona novo favorito
+      usuario.favoritos.push({ mal_id, title, image_url });
+    }
+
+    await usuario.save();
+    res.json(usuario); // devolve o usuário atualizado
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Erro ao atualizar favoritos." });
+  }
+};
+
+

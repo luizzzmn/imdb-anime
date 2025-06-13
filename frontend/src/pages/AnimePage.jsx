@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getAnime } from '../API/getAnime';
 import { getAniListInfoByMalId } from '../API/anilist';
+import api from '../backend-services/api'; // Importa o api.js
 import './AnimePage.css';
 
 function TextoLimitado({ texto, limite = 20 }) {
@@ -14,6 +15,7 @@ function AnimePage() {
   const [animeJikan, setAnimeJikan] = useState(null);
   const [animeAnilist, setAnimeAnilist] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [adicionado, setAdicionado] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -32,6 +34,37 @@ function AnimePage() {
 
     fetchData();
   }, [id]);
+
+  useEffect(() => {
+    // Verifica se já está nos favoritos
+    const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
+    if (usuario && usuario.favoritos) {
+      setAdicionado(usuario.favoritos.some(fav => fav.mal_id === Number(id)));
+    }
+  }, [id]);
+
+  const handleAdicionarFavorito = async () => {
+    const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
+    if (!usuario) {
+      alert('Você precisa estar logado para favoritar um anime.');
+      return;
+    }
+    try {
+      const animeFavorito = {
+  mal_id: animeJikan.mal_id,
+  title: animeJikan.title_english || animeJikan.title || animeJikan.title_japanese,
+  image_url: animeJikan.images?.jpg?.large_image_url || animeJikan.images?.jpg?.image_url,
+};
+
+      const userId = usuario.id || usuario._id;
+      const response = await api.patch(`/usuarios/${userId}/favoritos`, animeFavorito);
+      localStorage.setItem('usuarioLogado', JSON.stringify(response.data));
+      setAdicionado(true);
+    } catch (error) {
+      alert('Erro ao adicionar aos favoritos.');
+      console.error(error);
+    }
+  };
 
   if (loading) return <p>Carregando...</p>;
   if (!animeJikan) return <p>Anime não encontrado.</p>;
@@ -61,6 +94,14 @@ function AnimePage() {
             {animeJikan.synonyms?.length > 0 && (
               <p><strong>Títulos alternativos:</strong> {animeJikan.titles.map(t => t.title).join(', ')}</p>
             )}
+            <button
+              className="favoritar-btn"
+              onClick={handleAdicionarFavorito}
+              disabled={adicionado}
+              style={{ marginTop: '16px' }}
+            >
+              {adicionado ? 'Já está nos Favoritos' : 'Adicionar aos Favoritos'}
+            </button>
           </div>
         </div>
 
