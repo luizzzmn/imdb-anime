@@ -9,6 +9,7 @@ import { SearchProvider } from './context/SearchProvider.jsx'; // <- atualizado
 import './index.css';
 import Login from './pages/loginPage.jsx';
 import Register from './pages/registerPage.jsx';
+import UserProfile from './pages/userProfile.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route index element={<Home />} />
             <Route path="anime/:id" element={<AnimePage />} />
             <Route path="search" element={<Search />} />
+            <Route path="perfil" element={<UserProfile />} />
           </Route>
 
           {/* Rotas sem Navbar */}

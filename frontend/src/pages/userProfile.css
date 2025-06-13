@@ -1,0 +1,108 @@
+.perfil-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #0f0c29, #a27be1, #183B4E);
+  font-family: 'M PLUS Rounded 1c', 'Segoe UI', sans-serif;
+  color: #ffffff;
+}
+
+.perfil-card {
+  background: linear-gradient(135deg, #231e4f, #a27be1, #8175e0);
+  padding: 2rem 3rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  max-width: 600px;
+  width: 100%;
+  text-align: left;
+}
+
+.perfil-card h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+  text-align: center;
+}
+
+.perfil-info {
+  margin-bottom: 1.2rem;
+}
+
+.perfil-info label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #ffffff;
+}
+
+.perfil-info p {
+  font-size: 1rem;
+  margin: 0;
+  color: #ffffff;
+}
+
+.perfil-buttons {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.perfil-buttons button {
+  background-color: #3e63dd;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.perfil-buttons button:hover {
+  background-color: #2b4bbb;
+}
+
+@media (max-width: 600px) {
+  .perfil-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .perfil-card h2 {
+    font-size: 1.6rem;
+  }
+}
+
+.perfil-info label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.perfil-info input {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: none;
+  margin-top: 0.3rem;
+  font-size: 1rem;
+}
+
+.botoes-edicao {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cancelar-btn {
+  background-color: #999;
+}
+
+.cancelar-btn:hover {
+  background-color: #777;
+}
+

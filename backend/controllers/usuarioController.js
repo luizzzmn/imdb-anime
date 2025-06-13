@@ -32,7 +32,6 @@ export const atualizarUsuario = async function (req, res) {
   const id = req.params.id;
   const dadosAtualizados = req.body;
 
-  // mongoose acha o usuario e atualiza
   const usuarioAtualizado = await Usuario.findByIdAndUpdate(id, dadosAtualizados, { new: true });
   if (!usuarioAtualizado) {
     return res.status(404).send("Usuário não encontrado");
