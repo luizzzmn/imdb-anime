@@ -15,11 +15,12 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await api.post('/login', { email, senha });
+      const response = await api.post('/usuarios/login', { email, senha });
       localStorage.setItem('usuarioLogado', JSON.stringify(response.data));
       alert('Login bem-sucedido!');
       navigate('/');
     } catch (error) {
+      console.log('erro na requisição')
       alert('Email ou senha inválidos');
     }
   };
