@@ -20,10 +20,9 @@ function AnimePage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const jikanData = await getAnime(id).then((anime) => setAnimeJikan(anime));
-        //setAnimeJikan(jikanData);
-
-        console.log(animeJikan);
+        const jikanData = await getAnime(id);
+        setAnimeJikan(jikanData.data);
+        
         const anilistData = await getAniListInfoByMalId(id);
         setAnimeAnilist(anilistData);
       } catch (err) {
@@ -52,10 +51,10 @@ function AnimePage() {
     }
     try {
       const animeFavorito = {
-  mal_id: animeJikan.mal_id,
-  title: animeJikan.title_english || animeJikan.title || animeJikan.title_japanese,
-  image_url: animeJikan.images?.jpg?.large_image_url || animeJikan.images?.jpg?.image_url,
-};
+      mal_id: animeJikan.mal_id,
+      title: animeJikan.title_english || animeJikan.title || animeJikan.title_japanese,
+      image_url: animeJikan.images?.jpg?.large_image_url || animeJikan.images?.jpg?.image_url,
+      };
 
       const userId = usuario.id || usuario._id;
       const response = await api.patch(`/usuarios/${userId}/favoritos`, animeFavorito);
@@ -70,7 +69,7 @@ function AnimePage() {
   if (loading) return <p>Carregando...</p>;
   if (!animeJikan) return <p>Anime não encontrado.</p>;
 
-  const descricao = animeJikan.synopsis || "Descrição não encontrada.";
+  const descricao = animeJikan.synopsis;
   const bestEpisode = animeJikan.streamingEpisodes?.[0];
 
   return (
