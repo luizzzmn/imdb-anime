@@ -105,20 +105,20 @@ function UserProfile() {
         </section>
 
         <section className="favoritos-section">
-  <h2>Animes Favoritos</h2>
-  <div className="anime-list">
-    {usuario.favoritos && usuario.favoritos.length > 0 ? (
-      usuario.favoritos.map((anime) => (
-        <div key={anime.mal_id} className="anime-item">
-          <img src={anime.image_url} alt={anime.title} />
-          <p>{anime.title}</p>
-        </div>
-      ))
-    ) : (
-      <p>Você ainda não favoritou nenhum anime.</p>
-    )}
-  </div>
-</section>
+          <h2>Animes Favoritos</h2>
+          <div className="anime-list">
+            {usuario.favoritos && usuario.favoritos.length > 0 ? (
+              usuario.favoritos.map((anime) => (
+                <div key={anime.id} className="anime-item">
+                  <img src={anime.imagem} alt={anime.titulo} />
+                  <p>{anime.titulo}</p>
+                </div>
+              ))
+            ) : (
+              <p>Você ainda não favoritou nenhum anime.</p>
+            )}
+          </div>
+        </section>
       </main>
     </div>
   );

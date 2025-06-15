@@ -51,9 +51,9 @@ function AnimePage() {
     }
     try {
       const animeFavorito = {
-      mal_id: animeJikan.mal_id,
-      title: animeJikan.title_english || animeJikan.title || animeJikan.title_japanese,
-      image_url: animeJikan.images?.jpg?.large_image_url || animeJikan.images?.jpg?.image_url,
+      id: animeJikan.mal_id,
+      titulo: animeJikan.title_english || animeJikan.title || animeJikan.title_japanese,
+      imagem: animeJikan.images?.jpg?.large_image_url || animeJikan.images?.jpg?.image_url,
       };
 
       const userId = usuario.id || usuario._id;
