@@ -23,7 +23,7 @@ export const criarUsuario = async function (req, res) {
 
   // mongoose adiciona no bd baseado no model
   const usuarioCriado = await Usuario.create(usuario);
-  res.status(201).send("usuário recebido");
+  res.status(201).json(usuarioCriado);
 };
 
 

@@ -16,7 +16,7 @@ const usuarioSchema = new mongoose.Schema({
   senha: { type: String, required: true },
   pfp_url: { type: String },
   favoritos: { type: [ favoritoSchema ], default: [] },  // array de favoritos
-  reviews: { type: [{review_id: String}], default: [] }  // array de ids de reviews
+  review_ids: { type: [ String ], default: [] }  // array de ids de reviews
 });
 
 export default mongoose.model(collection_name,usuarioSchema);

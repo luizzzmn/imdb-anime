@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { getData } from '../API/getData';
-
 import './Home.css';
 import Footer from '../components/Footer';
 
@@ -22,7 +20,6 @@ const Home = () => {
   const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
 
   const isLogado = !!localStorage.getItem('token');
-  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
   useEffect(() => {
     async function fetchData() {

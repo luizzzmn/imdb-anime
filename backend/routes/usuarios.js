@@ -5,7 +5,7 @@ import {
   atualizarUsuario,
   deletarUsuario,
   loginUsuario,
-  toggleFavorito, // <-- IMPORTAR
+  toggleFavorito,
 } from '../controllers/usuarioController.js';
 
 const router = express.Router();

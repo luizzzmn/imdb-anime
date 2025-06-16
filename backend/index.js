@@ -2,7 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import rotasUsuarios from './routes/usuarios.js'
+import rotasUsuarios from './routes/usuarios.js';
+import rotasAnimes from './routes/animes.js';
 
 
 // configurações iniciais
@@ -21,6 +22,7 @@ app.use(cors(corsOptions));
 
 // uso das rotas
 app.use('/usuarios', rotasUsuarios);
+app.use('/animes', rotasAnimes);
 
 
 // conecta ao banco de dados usando o mongoose
