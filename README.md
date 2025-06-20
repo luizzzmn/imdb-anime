@@ -19,8 +19,3 @@ Setup inicial usando Vite + React, hospendando o site aqui pelo githubpages.
 - Utilização marjoritária de React com Bootstrap para a parte de interface do usuário no frontend.
 - Node.js + Express.js para a parte de backend e conexão com os servidores de API.
 - MongoDB para o banco de dados não relacional.
-
-BACKEND:
-O backend do projeto está armazenada em outro repositório. para total funcionamento da aplicação
-se faz necessário rodar o backend juntamente com o frontend.
-- Link para o backend: https://github.com/luizzzmn/imdb-anime-backend
