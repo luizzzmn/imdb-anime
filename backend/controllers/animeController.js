@@ -17,7 +17,7 @@ export const getAnimeByMalID = async function (req,res) {
 };
 
 export const getAnimeByTitulo = async function (req,res) {
-    const titulo = req.params.nome;
+    const titulo = req.params.titulo;
     try {
         const anime = await Anime.findOne({ titulo });
         res.status(200).json(anime);

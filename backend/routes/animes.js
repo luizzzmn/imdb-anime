@@ -11,9 +11,9 @@ import {
 const router = express.Router();
 
 router.get('/', getAnimes);
-router.get('/:id', getAnimeByMalID);
-router.get('/:titulo', getAnimeByTitulo);
-router.get('/:genero', getAnimesByGenero);
-router.get('/:ano', getAnimeByAno);
+router.get('/id/:id', getAnimeByMalID);
+router.get('/titulo/:titulo', getAnimeByTitulo);
+router.get('/genero/:genero', getAnimesByGenero);
+router.get('/ano/:ano', getAnimeByAno);
 
 export default router;
