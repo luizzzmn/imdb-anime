@@ -1,15 +1,21 @@
+// React e ReactDOM
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { SearchProvider } from './context/SearchProvider.jsx';
+
+// Estilo/Layout globais
+import './index.css';
 import App from './App.jsx';
+
+// Páginas principais
 import Home from './pages/Home.jsx';
 import AnimePage from './pages/AnimePage.jsx';
 import Search from './pages/Search.jsx';
-import { SearchProvider } from './context/SearchProvider.jsx'; // <- atualizado
-import './index.css';
+import SearchResult from './pages/SearchResult.jsx';
+import UserProfile from './pages/userProfile.jsx';
 import Login from './pages/loginPage.jsx';
 import Register from './pages/registerPage.jsx';
-import UserProfile from './pages/userProfile.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -21,6 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route index element={<Home />} />
             <Route path="anime/:id" element={<AnimePage />} />
             <Route path="search" element={<Search />} />
+            <Route path="search/:termo" element={<SearchResult />} />
             <Route path="perfil" element={<UserProfile />} />
           </Route>
 

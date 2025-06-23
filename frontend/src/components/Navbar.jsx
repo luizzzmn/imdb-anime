@@ -6,6 +6,7 @@ import logo1 from '../imagens/logo4.png';
 
 const Navbar = () => {
   const [usuario, setUsuario] = useState(null);
+  const [busca, setBusca] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,14 +22,27 @@ const Navbar = () => {
     navigate('/');
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (busca.trim()) {
+      navigate(`/search/${busca}`);
+      setBusca('');
+    }
+  };
+
   return (
     <nav id="navbar">
       <Link to="/" className="logo">
         <img src={logo1} alt="Logo" className="navbar-logo" />
       </Link>
 
-      <form className="search-form">
-        <input type="text" placeholder="Busque um anime" />
+      <form className="search-form" onSubmit={handleSearch}>
+        <input
+          type="text"
+          placeholder="Busque um anime"
+          value={busca}
+          onChange={e => setBusca(e.target.value)}
+        />
         <button type="submit">
           <BiSearchAlt2 />
         </button>

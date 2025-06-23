@@ -19,8 +19,29 @@ export const getAnimeByMalID = async function (req,res) {
 export const getAnimeByTitulo = async function (req,res) {
     const titulo = req.params.titulo;
     try {
-        const anime = await Anime.findOne({ titulo });
+        const anime = await Anime.findOne({
+            $or: [
+                { titulo: { $regex: titulo, $options: 'i' } },
+                { titulo_ingles: { $regex: titulo, $options: 'i' }}
+            ]
+        });
         res.status(200).json(anime);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(`Erro ao buscar anime pelo título.(${titulo})`);
+    }
+}
+
+export const getAllCorrespondencies = async function (req,res) {
+    const titulo = req.params.titulo;
+    try {
+        const animes = await Anime.find({
+            $or: [
+                { titulo: { $regex: titulo, $options: 'i' } },
+                { titulo_ingles: { $regex: titulo, $options: 'i' }}
+            ]
+        });
+        res.status(200).json(animes);
     } catch (err) {
         console.error(err);
         res.status(500).send(`Erro ao buscar anime pelo título.(${titulo})`);
