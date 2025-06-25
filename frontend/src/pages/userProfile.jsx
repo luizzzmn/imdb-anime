@@ -67,6 +67,7 @@ function UserProfile() {
     <div className="page-container">
       <main className="perfil-content">
         <section className="perfil-card">
+         
           <h2>Perfil do Usuário</h2>
           <div className="perfil-info-row">
             {editando ? (
@@ -137,26 +138,29 @@ function UserProfile() {
           ) : (
             <button onClick={handleEditClick} className="editar-btn">Editar Informações</button>
           )}
+        
         </section>
 
         <section className="favoritos-section">
           <h2>Animes Favoritos</h2>
-          <div className="anime-list">
-            {usuario.favoritos && usuario.favoritos.length > 0 ? (
-              usuario.favoritos.map((anime) => (
-                <div
-                  key={anime.id}
-                  className="anime-item"
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => navigate(`/anime/${anime.id}`)}
-                >
-                  <img src={anime.imagem} alt={anime.titulo} />
-                  <p>{anime.titulo}</p>
-                </div>
-              ))
-            ) : (
-              <p>Você ainda não favoritou nenhum anime.</p>
-            )}
+          <div className="scroll-wrapper">
+            <div className="anime-list">
+              {usuario.favoritos && usuario.favoritos.length > 0 ? (
+                usuario.favoritos.map((anime) => (
+                  <div
+                    key={anime.id}
+                    className="anime-item"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => navigate(`/anime/${anime.id}`)}
+                  >
+                    <img src={anime.imagem} alt={anime.titulo} />
+                    <p>{anime.titulo}</p>
+                  </div>
+                ))
+              ) : (
+                <p>Você ainda não favoritou nenhum anime.</p>
+              )}
+            </div>
           </div>
         </section>
       </main>
