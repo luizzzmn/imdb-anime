@@ -17,8 +17,8 @@ function UserProfile() {
       try {
         const userLocal = JSON.parse(localStorage.getItem('usuarioLogado'));
         console.log(userLocal);
-        if (userLocal && userLocal._id) {
-          const response = await api.get(`/usuarios/${userLocal._id}`);
+        if (userLocal && userLocal.id) {
+          const response = await api.get(`/usuarios/${userLocal.id}`);
           setUsuario(response.data);
           setFormData({ nome: response.data.nome, email: response.data.email, pfp_url: response.data.pfp_url || '' });
           localStorage.setItem('usuarioLogado', JSON.stringify(response.data));
