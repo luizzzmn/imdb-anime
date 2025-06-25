@@ -75,7 +75,7 @@ export const loginUsuario = async function (req, res) {
   const senhaValida = bcrypt.compare(senha, usuario.senha);
   if (!senhaValida) return res.status(401).send("Senha inválida");
 
-  res.status(200).json({ email: usuario.email, nome: usuario.nome, id: usuario._id });
+  res.status(200).json(usuario);
 };
 
 
