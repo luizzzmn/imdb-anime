@@ -39,7 +39,7 @@ function AnimePage() {
     // Verifica se já está nos favoritos
     const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
     if (usuario && usuario.favoritos) {
-      setAdicionado(usuario.favoritos.some(fav => fav.mal_id === Number(id)));
+      setAdicionado(usuario.favoritos.some(fav => fav.id === id));
     }
   }, [id]);
 
@@ -56,7 +56,7 @@ function AnimePage() {
       imagem: animeJikan.images?.jpg?.large_image_url || animeJikan.images?.jpg?.image_url,
       };
 
-      const userId = usuario.id || usuario._id;
+      const userId = usuario._id;
       const response = await api.patch(`/usuarios/${userId}/favoritos`, animeFavorito);
       localStorage.setItem('usuarioLogado', JSON.stringify(response.data));
       setAdicionado(true);

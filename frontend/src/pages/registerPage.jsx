@@ -11,13 +11,14 @@ function Register() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [foto, setFoto] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       // envia os dados para o backend usando o método POST
-      await api.post('/usuarios', { nome, email, senha });
+      await api.post('/usuarios', { nome, email, senha, pfp_url:foto });
       alert('Cadastro realizado com sucesso!');
       navigate('/login');
     } catch (error) {
@@ -57,6 +58,18 @@ function Register() {
             onChange={(e) => setSenha(e.target.value)}
             required
           />
+          <input
+            type="url"
+            placeholder="URL da foto (opcional)"
+            value={foto}
+            onChange={(e) => setFoto(e.target.value)}
+          />
+          {foto && (
+            <div className="foto-preview-container">
+              <img src={foto} alt="Prévia da foto" className="foto-preview" />
+              <p className="foto-preview-label">Prévia da foto</p>
+            </div>
+          )}
           <button type="submit" className="auth-button">Cadastrar</button>
         </form>
 

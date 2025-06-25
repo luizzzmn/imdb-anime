@@ -13,6 +13,19 @@ export const listarUsuarios = async function (req, res) {
 };
 
 
+// GET
+export const getUsuario = async function (req,res) {
+  const id = req.params.id;
+  try {
+    const usuario = await Usuario.findById(id);
+    res.status(200).json(usuario);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Erro ao buscar um usuário." });
+  }
+}
+
+
 // POST
 export const criarUsuario = async function (req, res) {
   const { nome, email, senha } = req.body;

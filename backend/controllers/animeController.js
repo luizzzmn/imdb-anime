@@ -70,3 +70,19 @@ export const getAnimeByAno = async function (req,res) {
         res.status(500).send(`Erro ao buscar animes pelo ano. (${ano})`);
     }
 }
+
+export const updateAnime = async function (req, res) {
+    const id = req.params.id;
+    const novosDados = req.body;
+
+    try {
+        const animeAtualizado = await Anime.findByIdAndUpdate(id, novosDados, { new: true });
+        if (!animeAtualizado) {
+            return res.status(404).send("Anime não encontrado");
+        }
+        res.status(200).json(animeAtualizado);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Erro ao atualizar o anime.");
+    }
+};

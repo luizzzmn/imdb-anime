@@ -19,6 +19,7 @@
   max-width: 600px;
   width: 100%;
   text-align: left;
+  margin-bottom: 15px;
 }
 
 .perfil-card h2 {
@@ -29,7 +30,20 @@
 }
 
 .perfil-info {
-  margin-bottom: 1.2rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.perfil-info .url-resumida {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #e0e0e0;
+  word-break: break-all;
+  margin-top: 5px;
 }
 
 .perfil-info label {
@@ -43,6 +57,30 @@
   font-size: 1rem;
   margin: 0;
   color: #ffffff;
+  margin-bottom: 5px;
+}
+
+.perfil-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 10px;
+}
+
+.perfil-foto-container {
+  min-width: 110px;
+  display: flex;
+  justify-content: center;
+}
+
+.perfil-foto {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #a27be1;
+  background: #eee;
 }
 
 .perfil-buttons {

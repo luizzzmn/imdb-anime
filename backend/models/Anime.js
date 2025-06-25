@@ -9,6 +9,7 @@ const animeSchema = new mongoose.Schema({
     cover_url:      { type: String, required: true },
     generos:        [ String ],
     ano:            Number,
+    nota:           Number
 });
 
 export default mongoose.model(collection_name, animeSchema);

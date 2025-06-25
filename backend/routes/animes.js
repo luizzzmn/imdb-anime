@@ -5,7 +5,8 @@ import {
     getAnimesByGenero,
     getAnimes,
     getAnimeByAno,
-    getAllCorrespondencies
+    getAllCorrespondencies,
+    updateAnime
 } from '../controllers/animeController.js';
 
 
@@ -17,5 +18,7 @@ router.get('/titulo/:titulo', getAnimeByTitulo);
 router.get('/titulos/:titulo', getAllCorrespondencies);
 router.get('/genero/:genero', getAnimesByGenero);
 router.get('/ano/:ano', getAnimeByAno);
+
+router.put('/:id', updateAnime);
 
 export default router;

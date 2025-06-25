@@ -34,17 +34,17 @@ const SearchResult = () => {
   };
 
   return (
-    <div className="page-container">
+    <div className="result-page-container">
         <div className="resultados-container">
         <h2 className="resultados-title">Resultados para "{termo}"</h2>
         {loading ? (
             <p>Carregando...</p>
         ) : animes.length > 0 ? (
-            <div className="anime-list">
+            <div className="results-anime-list">
             {animes.map(anime => (
                 <div
                 key={anime._id}
-                className="anime-item"
+                className="result-anime-item"
                 onClick={() => handleAnimeClick(anime._id)}
                 >
                 <img
