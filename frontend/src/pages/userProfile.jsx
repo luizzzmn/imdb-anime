@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../backend-services/api';
+import UserReviews from '../components/UserReviews';
+import AnimeItem from '../components/AnimeItem';
 import './userProfile.css';
 
 const URL_PADRAO = "https://cdn-icons-png.freepik.com/512/12225/12225935.png";
@@ -10,21 +12,33 @@ function UserProfile() {
   const [usuario, setUsuario] = useState(null);
   const [editando, setEditando] = useState(false);
   const [formData, setFormData] = useState({ nome: '', email: '', pfp_url: '' });
+  const [favoritos, setFavoritos] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchUsuario() {
       try {
         const userLocal = JSON.parse(localStorage.getItem('usuarioLogado'));
-        console.log("user Local:",userLocal);
         if (userLocal && userLocal._id) {
           const response = await api.get(`/usuarios/${userLocal._id}`);
           setUsuario(response.data);
           setFormData({ nome: response.data.nome, email: response.data.email, pfp_url: response.data.pfp_url || '' });
           localStorage.setItem('usuarioLogado', JSON.stringify(response.data));
+
+          // Buscar dados completos dos favoritos
+          if (Array.isArray(response.data.favoritos) && response.data.favoritos.length > 0) {
+            const promises = response.data.favoritos.map(animeId =>
+              api.get(`/animes/${animeId}`).then(res => res.data)
+            );
+            const animesFavoritos = await Promise.all(promises);
+            setFavoritos(animesFavoritos);
+          } else {
+            setFavoritos([]);
+          }
         }
       } catch (err) {
         console.error('Erro ao buscar usuário:', err);
+        setFavoritos([]);
       }
     }
     fetchUsuario();
@@ -145,23 +159,25 @@ function UserProfile() {
           <h2>Animes Favoritos</h2>
           <div className="scroll-wrapper">
             <div className="anime-list">
-              {usuario.favoritos && usuario.favoritos.length > 0 ? (
-                usuario.favoritos.map((anime) => (
-                  <div
-                    key={anime.id}
-                    className="anime-item"
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => navigate(`/anime/${anime.id}`)}
-                  >
-                    <img src={anime.imagem} alt={anime.titulo} />
-                    <p>{anime.titulo}</p>
-                  </div>
+              {favoritos.length > 0 ? (
+                favoritos.map((anime) => (
+                  <AnimeItem
+                    key={anime._id}
+                    image={anime.cover_url}
+                    title={anime.titulo_ingles || anime.titulo}
+                    nota={anime.nota}
+                    onClick={() => navigate(`/anime/${anime._id}`)}
+                  />
                 ))
               ) : (
                 <p>Você ainda não favoritou nenhum anime.</p>
               )}
             </div>
           </div>
+        </section>
+
+        <section className="user-reviews-section" id="user-reviews-section">
+          <UserReviews userId={usuario._id} />
         </section>
       </main>
     </div>

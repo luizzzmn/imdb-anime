@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { BiSearchAlt2 } from 'react-icons/bi';
 import { useEffect, useState } from 'react';
 import './Navbar.css';
@@ -8,6 +8,7 @@ const Navbar = () => {
   const [usuario, setUsuario] = useState(null);
   const [busca, setBusca] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const user = localStorage.getItem('usuarioLogado');
@@ -49,11 +50,37 @@ const Navbar = () => {
       </form>
 
       <div className="nav-buttons">
-        <Link to="/novidade" className="plain-link">Novidades</Link>
+        {location.pathname === "/" && (
+          <a
+            href="#proximos-lancamentos"
+            className="plain-link"
+            onClick={() => {
+              // rola suavemente até a seção
+              const el = document.getElementById('proximos-lancamentos');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            Novidades
+          </a>
+        )}
 
         {usuario ? (
           <>
-            <Link to="/perfil" className="plain-link">Perfil</Link>
+            {location.pathname === "/perfil" && (
+              <button
+                className="plain-link"
+                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                onClick={() => {
+                  const el = document.getElementById('user-reviews-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Minhas Reviews
+              </button>
+            )}
+            {location.pathname !== "/perfil" && (
+              <Link to="/perfil" className="plain-link">Perfil</Link>
+            )}
             <button className="logout-button" onClick={handleLogout}>Sair</button>
           </>
         ) : (

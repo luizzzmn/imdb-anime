@@ -171,6 +171,14 @@ main.perfil-content {
     text-align: center;
 }
 
+.user-reviews-section {
+    width: 80%;
+
+    & h2 {
+      text-align: center;
+    }
+}
+
 .scroll-wrapper {
     width: 100%;
     overflow-x: auto; 

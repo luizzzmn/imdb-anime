@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getData } from '../API/getData';
+import api from '../backend-services/api';
 import './Home.css';
 import Footer from '../components/Footer';
+import AnimeList from '../components/AnimeList';
 
 function TextoLimitado({ texto, limite = 20 }) {
   if (!texto) return null;
@@ -15,16 +17,15 @@ const Home = () => {
   const [TrendingAnimes, setTrendingAnimes] = useState([]);
   const [TopAnimes, setTopAnimes] = useState([]);
   const [UpcomingAnimes, setUpcomingAnimes] = useState([]);
+  const [favoritos, setFavoritos] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+  const isLogado = !localStorage.getItem('token');
 
-  const isLogado = !!localStorage.getItem('token');
-
+  // Ao entrar na Home
   useEffect(() => {
     async function fetchData() {
       try {
-        console.log(data)
         //const data = await getTrendingAnime();
         setTrendingAnimes(data.TrendingAnime);
       } catch (err) {
@@ -51,15 +52,37 @@ const Home = () => {
     fetchData();
   }, []);
 
+  // Quando o usuário faz login
+  useEffect(() => {
+    async function fetchFavoritos() {
+      const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
+      if (usuario && Array.isArray(usuario.favoritos) && usuario.favoritos.length > 0) {
+        try {
+          // Busca todos os animes favoritos pelo id
+          const promises = usuario.favoritos.map(animeId =>
+            api.get(`/animes/${animeId}`).then(res => res.data)
+          );
+          const animesFavoritos = await Promise.all(promises);
+          console.log(animesFavoritos);
+          setFavoritos(animesFavoritos);
+        } catch (err) {
+          setFavoritos([]);
+          console.error("Erro ao buscar animes favoritos:", err);
+        }
+      } else {
+        setFavoritos([]);
+      }
+    }
+
+    if (isLogado) {
+      fetchFavoritos();
+    } else {
+      setFavoritos([]);
+    }
+  }, [isLogado]);
+
   const handleAnimeClick = (id) => {
     navigate(`/anime/${id}`);
-  };
-
-  const handleLogout = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('usuarioLogado'); 
-  alert('Você saiu da conta.');
-  navigate('/login');
   };
 
   return (
@@ -72,78 +95,39 @@ const Home = () => {
             <div className="progresso-pessoal">
               <h2>Progresso Pessoal</h2>
               <p>Comece a avaliar suas obras!</p>
+
+              {favoritos.length > 0 ? (
+                <AnimeList
+                  animes={favoritos}
+                  onAnimeClick={handleAnimeClick}
+                  showNota={true}
+                />
+              ) : (
+                <p>Você ainda não favoritou nenhum anime.</p>
+              )}
+
             </div>
           )}
 
           <div className="destaques">
             <h2 className="scroll-title">Animes em Destaque:</h2>
-            {loading ? (
-              <p>Carregando...</p>
-            ) : (
-              <div className="scroll-wrapper">
-                <div className="anime-list">
-                  {TrendingAnimes.map((anime) => (
-                    <div
-                      key={anime.mal_id}
-                      className="anime-item"
-                      onClick={() => handleAnimeClick(anime.mal_id)}
-                      style={{ cursor: 'pointer' }}
-                    >
-                      <img src={anime.images.jpg.image_url} alt={anime.title} />
-                      <TextoLimitado texto={anime.title} limite={18} />
-                      <p>Nota: {anime.score}/10</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+            {loading ? <p>Carregando...</p> :
+              <AnimeList animes={TrendingAnimes} onAnimeClick={handleAnimeClick} />
+            }
           </div>
 
-          <div className="destaques">
+          <div className="maiores-notas">
             <h2 className="scroll-title">Obras com maiores notas:</h2>
-            {loading ? (
-              <p>Carregando...</p>
-            ) : (
-              <div className="scroll-wrapper">
-                <div className="anime-list">
-                  {TopAnimes.map((anime) => (
-                    <div
-                      key={anime.mal_id}
-                      className="anime-item"
-                      onClick={() => handleAnimeClick(anime.mal_id)}
-                      style={{ cursor: 'pointer' }}
-                    >
-                      <img src={anime.images.jpg.image_url} alt={anime.title} />
-                      <TextoLimitado texto={anime.title} limite={18} />
-                      <p>Nota: {anime.score}/10</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+            {loading ? <p>Carregando...</p> :
+              <AnimeList animes={TopAnimes} onAnimeClick={handleAnimeClick} />
+            }
           </div>
 
-          <div className="proximos-lancamentos">
+          <div className="proximos-lancamentos" id="proximos-lancamentos">
             <h2 className="scroll-title">Próximos lançamentos:</h2>
-            {loading ? (
-              <p>Carregando...</p>
-            ) : (
-              <div className="scroll-wrapper">
-                <div className="anime-list">
-                  {UpcomingAnimes.map((anime) => (
-                    <div
-                      key={anime.mal_id}
-                      className="anime-item"
-                      onClick={() => handleAnimeClick(anime.mal_id)}
-                      style={{ cursor: 'pointer' }}
-                    >
-                      <img src={anime.images.jpg.image_url} alt={anime.title} />
-                      <TextoLimitado texto={anime.title} limite={18} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+            {loading ? <p>Carregando...</p> :
+              <AnimeList animes={UpcomingAnimes} onAnimeClick={handleAnimeClick} showNota={false} />
+            }
           </div>
 
         </div>

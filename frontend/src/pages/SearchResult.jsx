@@ -1,12 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import api from '../backend-services/api';
+import AnimeItem from '../components/AnimeItem';
 import './SearchResult.css';
-
-function TextoLimitado({ texto, limite = 18 }) {
-  if (!texto) return null;
-  return <h5 className="result-anime-title">{texto.length > limite ? texto.slice(0, limite) + '...' : texto}</h5>;
-}
 
 const SearchResult = () => {
   const { termo } = useParams();
@@ -40,20 +36,15 @@ const SearchResult = () => {
         {loading ? (
             <p>Carregando...</p>
         ) : animes.length > 0 ? (
-            <div className="results-anime-list">
+          <div className="results-anime-list">
             {animes.map(anime => (
-                <div
+                <AnimeItem
                 key={anime._id}
-                className="result-anime-item"
+                image={anime.cover_url}
+                title={anime.titulo_ingles || anime.titulo}
+                nota={anime.nota}
                 onClick={() => handleAnimeClick(anime._id)}
-                >
-                <img
-                    src={anime.cover_url}
-                    alt={anime.titulo_ingles || anime.titulo}
-                />
-                <TextoLimitado texto={anime.titulo_ingles || anime.titulo} limite={18} />
-                {anime.score && <p>Nota: {anime.score}/10</p>}
-                </div>
+              />
             ))}
             </div>
         ) : (

@@ -42,7 +42,7 @@ function AnimePage() {
     // Verifica se já está nos favoritos
     const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
     if (usuario && usuario.favoritos) {
-      setAdicionado(usuario.favoritos.some(fav => fav.id === id));
+      setAdicionado(usuario.favoritos.includes(id));
     }
   }, [id]);
 
@@ -57,16 +57,10 @@ function AnimePage() {
       return;
     }
     try {
-      const animeFavorito = {
-      id: animeJikan.mal_id,
-      titulo: animeJikan.title_english || animeJikan.title || animeJikan.title_japanese,
-      imagem: animeJikan.images?.jpg?.large_image_url || animeJikan.images?.jpg?.image_url,
-      };
-
       const userId = usuario._id;
-      const response = await api.patch(`/usuarios/${userId}/favoritos`, animeFavorito);
+      const response = await api.patch(`/usuarios/${userId}/favoritos`, { animeId: id });
       localStorage.setItem('usuarioLogado', JSON.stringify(response.data));
-      setAdicionado(true);
+      setAdicionado(response.data.favoritos.includes(id));
     } catch (error) {
       alert('Erro ao adicionar aos favoritos.');
       console.error(error);
@@ -103,10 +97,9 @@ function AnimePage() {
             <button
               className="favoritar-btn"
               onClick={handleAdicionarFavorito}
-              disabled={adicionado}
-              style={{ marginTop: '16px' }}
+              style={{ marginTop: '16px', cursor: 'pointer' }}
             >
-              {adicionado ? 'Já está nos Favoritos' : 'Adicionar aos Favoritos'}
+              {adicionado ? 'Remover dos Favoritos' : 'Adicionar aos Favoritos'}
             </button>
           </div>
         </div>

@@ -124,3 +124,10 @@
   color: #666;
   margin-top: 0.3rem;
 }
+
+.auth-error {
+  color: #ff4d4f;
+  margin-top: 0.5rem;
+  font-size: 0.98rem;
+  text-align: left;
+}

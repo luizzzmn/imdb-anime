@@ -12,17 +12,17 @@ function Register() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [foto, setFoto] = useState('');
+  const [erro, setErro] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setErro('');
     try {
       // envia os dados para o backend usando o método POST
       await api.post('/usuarios', { nome, email, senha, pfp_url:foto });
-      alert('Cadastro realizado com sucesso!');
       navigate('/login');
     } catch (error) {
-      alert('Erro ao cadastrar usuário!');
+      setErro('Erro ao cadastrar usuário! Verifique os dados e tente novamente.');
       console.error(error);
     }
   };
@@ -70,6 +70,7 @@ function Register() {
               <p className="foto-preview-label">Prévia da foto</p>
             </div>
           )}
+          {erro && <div className="auth-error">{erro}</div>}
           <button type="submit" className="auth-button">Cadastrar</button>
         </form>
 

@@ -82,20 +82,20 @@ export const loginUsuario = async function (req, res) {
 // PATCH - Adicionar ou remover um anime dos favoritos
 export const toggleFavorito = async function (req, res) {
   const usuario_id = req.params.id;
-  const { id, titulo, imagem } = req.body;
+  const { animeId } = req.body; // espera { animeId: "id_do_anime" }
 
   try {
     const usuario = await Usuario.findById(usuario_id);
     if (!usuario) return res.status(404).json({ message: "Usuário não encontrado" });
 
-    const jaExiste = usuario.favoritos.some(fav => fav.id === id);
+    const jaExiste = usuario.favoritos.includes(animeId);
 
     if (jaExiste) {
       // Remove o favorito se já existir
-      usuario.favoritos = usuario.favoritos.filter(fav => fav.id !== id);
+      usuario.favoritos = usuario.favoritos.filter(favId => favId !== animeId);
     } else {
       // Adiciona novo favorito
-      usuario.favoritos.push({ id, titulo, imagem });
+      usuario.favoritos.push(animeId);
     }
 
     await usuario.save();

@@ -1,16 +1,13 @@
-
 .page-container {
   display: flex;
   flex-direction: column;
-  align-items: center;           /* Centraliza no eixo horizontal */
-  justify-content: center;       /* Centraliza no eixo vertical (opcional) */
+  align-items: center;
   min-height: 100vh;
   background: linear-gradient(135deg, #0f0c29, #a27be1, #183B4E);
   font-family: 'M PLUS Rounded 1c', 'Segoe UI', sans-serif;
   color: #1c1c1c;
-  padding: 20px;                 /* Adiciona espaço interno */
+  padding: 20px;
 }
-
 
 main.content {
   flex: 1;
@@ -26,56 +23,14 @@ h2 {
   margin-bottom: 0.75rem;
 }
 
-
 p {
   color: #ffffff;
 }
 
-.home-anime-title {
-  font-size: 1.2rem;
-  font-weight: 500;
-  margin: 0;
-  color: #27548A;
-  text-align: left;
-}
-
-
-.anime-list {
-  display: flex;
-  gap: 1.2rem;
-  padding-bottom: 1rem;
-}
-
-.anime-item {
-  width: 200px;
-  flex-shrink: 0;
+.scroll-highlight-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 0.5rem;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  padding: 0.7rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.anime-item:hover {
-  transform: translateY(-5px) scale(1.03);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-}
-
-.anime-item img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-  border-radius: 6px;
-}
-
-
-
-.scroll-highlight-container {
-  padding: 2rem 0;
 }
 
 .scroll-title {
@@ -84,37 +39,19 @@ p {
   color: #ffffff;
 }
 
-.scroll-wrapper {
-  width: 100%;
-  overflow-x: auto;
-  padding-bottom: 0.5rem;
-  padding-top: 15px;
-  padding-left: 5px;
-}
-
-.scroll-wrapper::-webkit-scrollbar {
-  height: 8px;
-}
-
-.scroll-wrapper::-webkit-scrollbar-thumb {
-  background-color: #9baacf;
-  border-radius: 10px;
-}
-
-
 .destaques,
+.maiores-notas,
 .proximos-lancamentos,
 .progresso-pessoal {
   width: 100%;
-  max-width: 1400px;              /* aumenta a largura máxima */
-  margin: 3rem auto;              /* centraliza */
-  padding: 2rem;                  /* mais espaço interno */
+  max-width: 1400px;
+  padding: 2rem;
+  margin-bottom: 30px;
   background: linear-gradient(135deg, #231e4f, #a27be1, #8175e0);
   border-radius: 12px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(8px);
 }
-
 
 button {
   background-color: #3e63dd;
@@ -128,36 +65,4 @@ button {
 
 button:hover {
   background-color: #2b4bbb;
-}
-
-
-
-.anime-item p {
-  display: flex;
-  flex-direction: column;
-  justify-content: end;
-  align-items: start;
-  margin: 0;
-  font-size: 0.95rem;
-  color: #30233b;
-  font-weight: 500;
-}
-
-
-@media (max-width: 768px) {
-  .anime-item {
-    width: 150px;
-  }
-
-  .anime-item img {
-    height: 220px;
-  }
-
-  h2 {
-    font-size: 1.4rem;
-  }
-
-  .scroll-title {
-    font-size: 1.2rem;
-  }
 }

@@ -13,7 +13,7 @@ import {
 const router = express.Router();
 
 router.get('/', getAnimes);
-router.get('/id/:id', getAnimeByMalID);
+router.get('/:id', getAnimeByMalID);
 router.get('/titulo/:titulo', getAnimeByTitulo);
 router.get('/titulos/:titulo', getAllCorrespondencies);
 router.get('/genero/:genero', getAnimesByGenero);
