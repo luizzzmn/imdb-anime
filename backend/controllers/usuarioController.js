@@ -106,3 +106,30 @@ export const toggleFavorito = async function (req, res) {
     res.status(500).json({ message: "Erro ao atualizar favoritos." });
   }
 };
+
+// PATCH - Adicionar ou remover o id de uma review ao usuário (toggle)
+export const toggleReviewId = async function (req, res) {
+  const usuario_id = req.params.id;
+  const { reviewId } = req.body; // espera { reviewId: "id_da_review" }
+
+  try {
+    const usuario = await Usuario.findById(usuario_id);
+    if (!usuario) return res.status(404).json({ message: "Usuário não encontrado" });
+
+    const jaExiste = usuario.review_ids.includes(reviewId);
+
+    if (jaExiste) {
+      // Remove a review se já existir
+      usuario.review_ids = usuario.review_ids.filter(id => id !== reviewId);
+    } else {
+      // Adiciona a review se não existir
+      usuario.review_ids.push(reviewId);
+    }
+
+    await usuario.save();
+    res.json(usuario); // devolve o usuário atualizado
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Erro ao atualizar reviews do usuário." });
+  }
+};

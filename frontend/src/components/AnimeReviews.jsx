@@ -15,6 +15,10 @@ function AnimeReviews({ animeId, refresh, onReviewDeleted }) {
   async function handleDelete(reviewId) {
     try {
       await api.delete(`/reviews/${reviewId}`);
+      // Remove a review também da lista de reviews do usuário
+      if (usuarioLogado && usuarioLogado._id) {
+        await api.patch(`/usuarios/${usuarioLogado._id}/toggle-review`, { reviewId });
+      }
       setConfirmDeleteId(null);
       if (typeof onReviewDeleted === 'function') onReviewDeleted();
     } catch {

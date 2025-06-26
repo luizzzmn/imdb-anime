@@ -25,7 +25,7 @@ function ReviewForm({ animeId, onReviewSaved }) {
     }
     setLoading(true);
     try {
-      await api.post('/reviews', {
+      const res = await api.post('/reviews', {
         anime_id: animeId,
         reviewer_id: usuario._id,
         review,
@@ -33,6 +33,10 @@ function ReviewForm({ animeId, onReviewSaved }) {
       });
       setReview('');
       setNota('');
+      // Adiciona o id da review ao usuário
+      if (res.data && res.data._id) {
+        await api.patch(`/usuarios/${usuario._id}/toggle-review`, { reviewId: res.data._id });
+      }
       if (onReviewSaved) onReviewSaved();
     } catch (err) {
       setErro('Erro ao salvar review.');
