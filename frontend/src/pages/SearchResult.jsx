@@ -5,7 +5,7 @@ import './SearchResult.css';
 
 function TextoLimitado({ texto, limite = 18 }) {
   if (!texto) return null;
-  return <h5 className="anime-title">{texto.length > limite ? texto.slice(0, limite) + '...' : texto}</h5>;
+  return <h5 className="result-anime-title">{texto.length > limite ? texto.slice(0, limite) + '...' : texto}</h5>;
 }
 
 const SearchResult = () => {

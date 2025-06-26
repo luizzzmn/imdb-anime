@@ -8,7 +8,7 @@
 }
 
 .anime-page {
-  background-color: #f9f9f9;
+  background: linear-gradient(180deg, #f9f9f9 710px, #262471 1150px, #0f0c29);
   padding-top: 0;
 }
 
@@ -18,10 +18,12 @@
   margin: 0 auto;
 }
 
-.anime-title {
-  color: #27548A;
+.anime-page .anime-title {
+  color: #0f0c29;
   font-size: 2rem;
   margin-bottom: 1rem;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 
 .anime-info {

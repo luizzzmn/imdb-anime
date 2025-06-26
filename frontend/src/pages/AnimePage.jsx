@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { getAnime } from '../API/getAnime';
 import { getAniListInfoByMalId } from '../API/anilist';
 import api from '../backend-services/api'; // Importa o api.js
+import AnimeReviews from '../components/AnimeReviews';
+import ReviewForm from '../components/ReviewForm';
 import './AnimePage.css';
 
 function TextoLimitado({ texto, limite = 20 }) {
@@ -16,6 +18,7 @@ function AnimePage() {
   const [animeAnilist, setAnimeAnilist] = useState(null);
   const [loading, setLoading] = useState(true);
   const [adicionado, setAdicionado] = useState(false);
+  const [refreshReviews, setRefreshReviews] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
@@ -42,6 +45,10 @@ function AnimePage() {
       setAdicionado(usuario.favoritos.some(fav => fav.id === id));
     }
   }, [id]);
+
+  function atualizarReviews() {
+    setRefreshReviews(prev => prev + 1);
+  }
 
   const handleAdicionarFavorito = async () => {
     const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
@@ -70,7 +77,6 @@ function AnimePage() {
   if (!animeJikan) return <p>Anime não encontrado.</p>;
 
   const descricao = animeJikan.synopsis;
-  const bestEpisode = animeJikan.streamingEpisodes?.[0];
 
   return (
     <div className="anime-page">
@@ -105,15 +111,15 @@ function AnimePage() {
           </div>
         </div>
 
-        {bestEpisode && (
-          <div className="best-episode">
-            <h2>Episódio melhor avaliado</h2>
-            <a href={bestEpisode.url} target="_blank" rel="noopener noreferrer">
-              <img src={bestEpisode.thumbnail} alt={bestEpisode.title} />
-              <p>{bestEpisode.title}</p>
-            </a>
+        <div className="reviews-section">
+          <div className="review-input-container">
+            <h2 style={{ color: '#0f0c29' }}>Escreva sua review:</h2>
+            <ReviewForm animeId={id} onReviewSaved={atualizarReviews} />
           </div>
-        )}
+          <div className="reviews-container">
+            <AnimeReviews animeId={id} refresh={refreshReviews} onReviewDeleted={atualizarReviews} />
+          </div>
+        </div>
       </div>
     </div>
   );

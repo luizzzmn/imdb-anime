@@ -94,3 +94,17 @@ export const atualizarReview = async function (req, res) {
         res.status(500).send("Erro ao atualizar a review no banco de dados.");
     }
 };
+
+export const deletarReview = async function (req, res) {
+    const id = req.params.id;
+    try {
+        const reviewRemovida = await Review.findByIdAndDelete(id);
+        if (!reviewRemovida) {
+            return res.status(404).send("Review não encontrada");
+        }
+        res.status(200).send("Review removida com sucesso");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Erro ao remover a review do banco de dados.");
+    }
+};

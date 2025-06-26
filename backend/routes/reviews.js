@@ -7,7 +7,8 @@ import {
     getReviewsByDate,
     getReviewsByNota,
     postarReview,
-    atualizarReview
+    atualizarReview,
+    deletarReview
 } from '../controllers/reviewController.js';
 
 const router = express.Router();
@@ -20,5 +21,6 @@ router.get('/date/:date', getReviewsByDate); // reviews por data (YYYY-MM-DD)
 router.get('/nota/:nota', getReviewsByNota);
 router.post('/', postarReview);
 router.put('/:id', atualizarReview);
+router.delete('/:id', deletarReview);
 
 export default router;
