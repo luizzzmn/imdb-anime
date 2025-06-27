@@ -1,0 +1,77 @@
+.scroll-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.scroll-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.scroll-wrapper::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 10px;
+}
+
+.anime-list {
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 1rem;
+}
+
+.anime-item {
+  min-width: 160px;
+  width: 200px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 0.7rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.anime-item:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.anime-item img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.home-anime-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0;
+  color: #27548A;
+  text-align: left;
+}
+
+.anime-item p {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: start;
+  margin: 0;
+  font-size: 0.95rem;
+  color: #30233b;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .anime-item {
+    width: 150px;
+  }
+
+  .anime-item img {
+    height: 220px;
+  }
+}

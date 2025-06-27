@@ -1,0 +1,68 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0c29, #a27be1, #183B4E);
+  font-family: 'M PLUS Rounded 1c', 'Segoe UI', sans-serif;
+  color: #1c1c1c;
+  padding: 20px;
+}
+
+main.content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 2000px;
+  margin: 0 auto;
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+p {
+  color: #ffffff;
+}
+
+.scroll-highlight-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.scroll-title {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.destaques,
+.maiores-notas,
+.proximos-lancamentos,
+.progresso-pessoal {
+  width: 100%;
+  max-width: 1400px;
+  padding: 2rem;
+  margin-bottom: 30px;
+  background: linear-gradient(135deg, #231e4f, #a27be1, #8175e0);
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(8px);
+}
+
+button {
+  background-color: #3e63dd;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2b4bbb;
+}

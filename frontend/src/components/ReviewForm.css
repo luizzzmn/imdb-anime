@@ -1,0 +1,74 @@
+.review-form-box {
+  display: flex;
+  align-items: flex-start;
+  background: #23243a;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(80, 60, 160, 0.07);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.review-form-user-photo {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #a27be1;
+  background: #eee;
+  margin-top: 2px;
+}
+
+.review-form-fields {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.review-form-textarea {
+  width: 100%;
+  min-height: 60px;
+  resize: vertical;
+  border-radius: 8px;
+  border: 1px solid #a27be1;
+  padding: 0.7rem;
+  font-size: 1rem;
+  color: #23243a;
+  margin-bottom: 0.7rem;
+}
+
+.review-form-bottom {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.review-form-score {
+  width: 110px;
+  border-radius: 6px;
+  border: 1px solid #a27be1;
+  padding: 0.4rem;
+  font-size: 1rem;
+}
+
+.review-form-button {
+  background: #a27be1;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.review-form-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.review-form-erro {
+  color: #ff6b6b;
+  margin-top: 0.5rem;
+  font-size: 0.98rem;
+}

@@ -1,0 +1,88 @@
+.result-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0c29, #a27be1, #183B4E);
+  font-family: 'M PLUS Rounded 1c', 'Segoe UI', sans-serif;
+  color: #1c1c1c;
+  padding: 20px;
+}
+
+.resultados-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, #0f0c29, #a27be1, #183B4E);
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(8px);
+}
+
+.resultados-title {
+  font-size: 1.6rem;
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.results-anime-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  padding-bottom: 1rem;
+}
+
+.result-anime-item {
+  width: 200px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 0.7rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.anime-item:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.anime-item img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.result-anime-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0;
+  color: #27548A;
+  text-align: left;
+}
+
+.anime-item p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #30233b;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .anime-item {
+    width: 150px;
+  }
+  .anime-item img {
+    height: 220px;
+  }
+  .resultados-title {
+    font-size: 1.2rem;
+  }
+}
