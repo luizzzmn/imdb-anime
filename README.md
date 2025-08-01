@@ -1,4 +1,4 @@
-# 🎌 IMDb Anime
+# 🎌 ANIBASE
 
 Uma plataforma fullstack inspirada no IMDb, desenvolvida durante a disciplina de programação web como objetivo de obtenção da nota final. Dedicada exclusivamente a animes,  com ela os usuários podem explorar animes populares, ver detalhes, deixar reviews e interagir com a comunidade.
 
